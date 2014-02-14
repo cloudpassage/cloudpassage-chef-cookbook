@@ -1,8 +1,8 @@
-#
 # Cookbook Name:: cloudpassage_linux
 # Recipe:: default
+# Author:: ehoffmann
 #
-# Copyright 2013, CloudPassage
+# Copyright 2014, CloudPassage
 #
 # determine OS and relevant package_mgr cmds
 case node[:platform]
@@ -11,32 +11,46 @@ case node[:platform]
     repo_cmd = "echo 'deb #{base_url}' | sudo tee /etc/apt/sources.list.d/cloudpassage.list > /dev/null"
     key_cmd = "curl http://packages.cloudpassage.com/cloudpassage.packages.key | sudo apt-key add -"
     check_key_installed = "sudo apt-key list | grep -i cloudpassage"
+    check_halo_installed = `sudo dpkg -s cphalo`
     update_repo_cmd = "sudo apt-get update"
+    Chef::Log.info('Detected DPKG-based OS')
+    Chef::Log.info(check_halo_installed)
+    if check_halo_installed.match(/Package: cphalo/)
+      puts "Halo is already installed."
+      return
+    end
 
   when "centos", "fedora", "rhel", "redhat", "amazon"
     base_url = "http://packages.cloudpassage.com/redhat/$basearch\ngpgcheck=1"
     repo_cmd = "echo -e '[cloudpassage]\nname=CloudPassage\nbaseurl=#{base_url}' | sudo tee /etc/yum.repos.d/cloudpassage.repo > /dev/null"
     key_cmd = "sudo rpm --import http://packages.cloudpassage.com/cloudpassage.packages.key"
     check_key_installed = "sudo rpm -qa gpg-pubkey* | xargs -i rpm -qi {} | grep -i cloudpassage"
+    check_halo_installed = `sudo rpm -q cphalo -i`
     update_repo_cmd = "sudo yum list > /dev/null"
+    Chef::Log.info('Detected RPM-based OS')
+    Chef::Log.info(check_halo_installed)
+    if check_halo_installed.match(/Vendor: CloudPassage/)
+      puts "Halo is already installed."
+      return
+    end
 end
 
 # add CloudPassage repository
 execute "add-cloudpassage-repository" do
-  command "#{repo_cmd}"
+  command repo_cmd
   action :run
 end
 
 # import CloudPassage public key
 execute "import-cloudpassage-public-key" do
-  command "#{key_cmd}"
+  command key_cmd
   action :run
   not_if check_key_installed
 end
 
 # update repositories
 execute "update-repositories" do
-  command "#{update_repo_cmd}"
+  command update_repo_cmd
   action :run
 end
 
@@ -48,6 +62,6 @@ end
 # start the daemon for the first time with the provided attributes.rb
 # defined server_tag
 execute "cphalo-start" do
-  command "sudo /etc/init.d/cphalod start --daemon-key=#{node[:cloudpassage_linux]['daemon_key']} --tag=#{node[:cloudpassage_linux][:tag]}"
+  command "sudo /etc/init.d/cphalod start --daemon-key=#{node[:cloudpassage_linux]['daemon_key']} --tag=#{node[:cloudpassage_linux]['tag']}"
   action :run
 end

@@ -1,8 +1,10 @@
-name             'cloudpassage_windows'
+name             'halo-agent'
 maintainer       'YOUR_COMPANY_NAME'
 maintainer_email 'YOUR_EMAIL'
 license          'All rights reserved'
-description      'Installs/Configures cloudpassage_windows'
+description      'Installs/Configures cloudpassage'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
-depends          'powershell'
+depends          'apt'
+depends          'yum'
+depends          'windows'

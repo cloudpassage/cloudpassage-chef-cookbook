@@ -30,8 +30,8 @@ This cookbook relies on the yum, apt, and windows recipes.
 <!-- list all libraries, scripts, other files provided with this tool.
 Use asterisk-space if you want to make a bullet item.  -->
 
-* recipes/default.rb - the cookbook
-* attributes/default.rb - attributes file
+* recipes/default.rb - the recipe
+* attributes/default.rb - attributes file.  Contains installation variables, proxy settings, etc...
 
 
 ##Usage

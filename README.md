@@ -36,4 +36,8 @@ The attributes file contains two default attributes that need to be replaced wit
 Command-line usage:
 
     knife bootstrap <your server instance FQDN> -x <root|ec2-user, other privileged user_name> -i “~/.ssh/<ssh_key>” -r "cloudpassage" --sudo
-
+    
+<!---
+#CPTAGS:community-supported automation deployment
+#TBICON:images/ruby_icon.png
+--->

@@ -1,6 +1,4 @@
-# CHANGELOG for cloudpassage_linux
-
-This file is used to list changes made in each version of cloudpassage_linux.
+# CHANGELOG for cloudpassage
 
 ## 0.1.0:
 
@@ -15,7 +13,7 @@ This file is used to list changes made in each version of cloudpassage_linux.
 
 ## 0.3.0:
 
-* Consolidating down into one recipe for all platforms
+* Consolidating down into one recipe for all platforms (now just referred to as 'cloudpassage')
 
 ## 0.3.1:
 

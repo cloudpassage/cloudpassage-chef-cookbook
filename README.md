@@ -1,4 +1,4 @@
-# CloudPassage Linux Cookbook
+# CloudPassage Chef Recipe
 
 Version: 0.3.1  
 Author: Eric Hoffmann - ehoffmann@cloudpassage.com
@@ -16,17 +16,15 @@ This cookbook relies on the yum, apt, and windows recipes.
 
 ## List of Files
 
-'''
-├── CHANGELOG.md     # Changelog
-├── LICENSE.txt      # License
-├── README.md        # This file
-├── attributes      
-│   └── default.rb   # Set your variables here...
-├── metadata.rb      # About this recipe
-└── recipes         
-    └── default.rb   # The Halo agent installation recipe
+    ├── CHANGELOG.md     # Changelog
+    ├── LICENSE.txt      # License
+    ├── README.md        # This file
+    ├── attributes      
+    │   └── default.rb   # Set your variables here...
+    ├── metadata.rb      # About this recipe
+    └── recipes         
+        └── default.rb   # The Halo agent installation recipe
 
-'''
 
 ## Usage
 

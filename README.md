@@ -1,43 +1,51 @@
-# CloudPassage Chef Recipe
+# cloudpassage_halo Chef Cookbook
 
-Version: 0.3.1  
-Author: Eric Hoffmann - ehoffmann@cloudpassage.com
+Version: 1.0
+Author: CloudPassage
 
-Revisions: Elijah Wright - ewright@cloudpassage.com
+This cookbook installs CloudPassage Halo on Windows, Debian-based \
+(Debian, Ubuntu) and RHEL-based (RHEL, CentOS, Oracle) operating systems.
 
+## Requirements and dependencies
 
-This cookbook installs Halo on Windows, Debian-based (Ubuntu, Debian), and RHEL-based (CentOS, Oracle) operating systems.
-
-
-## Requirements and Dependencies
-
-This cookbook relies on the yum, apt, and windows recipes.
-
+This cookbook depends on the yum, apt, and windows cookbooks.
 
 ## List of Files
 
-    ├── CHANGELOG.md     # Changelog
-    ├── LICENSE.txt      # License
-    ├── README.md        # This file
-    ├── attributes      
-    │   └── default.rb   # Set your variables here...
-    ├── metadata.rb      # About this recipe
-    └── recipes         
-        └── default.rb   # The Halo agent installation recipe
+TBD
+
+## Usage:
+
+The following attributes are configurable via the attributes/default.rb file:
+
+    agent_key
+    proxy_user
+    proxy_password
+    grid_url
+    proxy_host
+    proxy_port
+    read_only
+    server_tag
+    server_label
+    dns
+    suppress_cloudpassage_repo
+    windows_installer_protocol
+    windows_installer_port
+    windows_installer_host
+    windows_installer_path
+    windows_installer_file_name
+    apt_repo_url
+    apt_key_url
+    yum_repo_url
+    apt_key_url
 
 
-## Usage
+The following configuration options, delivered in an encrypted data bag, will
+override the defaults in the attributes file:
+    agent_key
+    proxy_user
+    proxy_password
 
-The attributes file contains two default attributes that need to be replaced with your specific Halo daemon key and server-group tag name, as well as a number of other variables that should only be changed if you know they need to be different:
 
-    default[:cloudpassage][:agent_key] = "abc123abc123abc123abc123abc123ab"
-    default[:cloudpassage][:tag] = "chefRocks"
-
-Command-line usage:
-
-    knife bootstrap <your server instance FQDN> -x <root|ec2-user, other privileged user_name> -i “~/.ssh/<ssh_key>” -r "cloudpassage" --sudo
-    
-<!---
-#CPTAGS:community-supported automation deployment
-#TBICON:images/ruby_icon.png
---->
+Note: If the repo URL is configured as an empty string, the recipe will not
+attempt to add the appropriate CloudPassage repository on the node.

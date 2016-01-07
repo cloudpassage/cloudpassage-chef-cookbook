@@ -17,6 +17,7 @@ configurator = CloudPassage::ConfigHelper.new(
   proxy_port: config['proxy_port'], read_only: config['read_only'],
   server_tag: config['server_tag'], server_label: config['server_label'],
   proxy_user: config['proxy_user'], proxy_password: config['proxy_password'],
+  proxy_password: config['proxy_password'],
   windows_installer_protocol: config['windows_installer_protocol'],
   windows_installer_host: config['windows_installer_host'],
   windows_installer_port: config['windows_installer_port'],

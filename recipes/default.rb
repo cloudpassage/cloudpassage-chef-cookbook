@@ -48,15 +48,22 @@ case node['platform_family']
 when 'debian', 'rhel'
   p_serv_name = 'cphalod'
   package 'cphalo' do
-    action [:install, :upgrade]
+    action [:install]
   end
   execute 'cphalo-config' do
     command [
-      'sudo', '/opt/cloudpassage/bin/configure',
+      '/opt/cloudpassage/bin/configure',
       configurator.linux_configuration].join(' ')
     action :run
     # We don't run the configurator if the store.db file already exists
     not_if { File.exist?('/opt/cloudpassage/data/store.db') }
+  end
+  service 'cphalod' do
+    supports [:start, :stop, :restart]
+    start_command '/etc/init.d/cphalod start'
+    stop_command '/etc/init.d/cphalod stop'
+    restart_command '/etc/init.d/cphalod restart'
+    action :start
   end
 when 'windows'
   p_serv_name = 'CloudPassage Halo Agent'
@@ -66,9 +73,6 @@ when 'windows'
     installer_type :custom
     action :install
   end
-end
-
-# Now we start the agent using the platform's service manager!
-service "#{p_serv_name}" do
+  service 'CloudPassage Halo Agent'
   action [:enable, :start]
 end

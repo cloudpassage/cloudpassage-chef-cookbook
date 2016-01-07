@@ -48,7 +48,7 @@ case node['platform_family']
 when 'debian', 'rhel'
   p_serv_name = 'cphalod'
   package 'cphalo' do
-    action [:install]
+    action :install
   end
   execute 'cphalo-config' do
     command [

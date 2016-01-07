@@ -7,7 +7,7 @@
 
 # First we build the proxy string
 if node[:cloudpassage][:proxy_url] != "" then
-    ENV ['http_proxy'] = "#{node[:cloudpassage][:proxy_url]}"
+    ENV['http_proxy'] = "#{node[:cloudpassage][:proxy_url]}"
     if (node[:cloudpassage][:proxy_user] != "") && (node[:cloudpassage][:proxy_pass] != "") then
         proxy_string_lin = "--proxy=\"#{node[:cloudpassage][:proxy_url]}\" --proxy-user=\"#{node[:cloudpassage][:proxy_user]}\" --proxy-password=\"#{node[:cloudpassage][:proxy_pass]}\""
         proxy_string_win = "/proxy=\"#{node[:cloudpassage][:proxy_url]}\" /proxy-user=\"#{node[:cloudpassage][:proxy_user]}\" /proxy-password=\"#{node[:cloudpassage][:proxy_pass]}\""

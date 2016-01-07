@@ -38,7 +38,7 @@ when 'rhel'
   yum_repository 'cloudpassage' do
     description 'CloudPassage Halo Repository'
     baseurl config['yum_repo_url']
-    gpgkey config['yum_key_location']
+    gpgkey config['yum_key_url']
     action :create
     not_if config['yum_repo_url'] == ''
   end

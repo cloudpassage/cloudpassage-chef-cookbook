@@ -6,7 +6,7 @@
 
 # Instantiate config helper
 
-config = node[:cloudpassage_halo]
+config = node['cloudpassage_halo']
 
 # Add a routine to merge data bag config items over attribute file-configured
 # keys
@@ -17,7 +17,6 @@ configurator = CloudPassage::ConfigHelper.new(
   proxy_port: config['proxy_port'], read_only: config['read_only'],
   server_tag: config['server_tag'], server_label: config['server_label'],
   proxy_user: config['proxy_user'], proxy_password: config['proxy_password'],
-  proxy_password: config['proxy_password'],
   windows_installer_protocol: config['windows_installer_protocol'],
   windows_installer_host: config['windows_installer_host'],
   windows_installer_port: config['windows_installer_port'],
@@ -28,11 +27,12 @@ configurator = CloudPassage::ConfigHelper.new(
 case node['platform_family']
 when 'debian'
   apt_repository 'cloudpassage' do
-    uri node[:cloudpassage_halo][:apt_repo_url]
-    distribution node[:cloudpassage_halo][:apt_repo_distribution]
-    components node[:cloudpassage_halo][:apt_repo_components]
-    key node[:cloudpassage_halo][:apt_key_url]
-    not_if node[:cloudpassage_halo][:apt_repo_url] == ''
+    uri config['apt_repo_url']
+    distribution config['apt_repo_distribution']
+    components config['apt_repo_components']
+    key config['apt_key_url']
+    not_if config['apt_repo_url'] == ''
+    action :add
   end
 when 'rhel'
   yum_repository 'cloudpassage' do
@@ -46,7 +46,6 @@ end
 # Install and register the Halo agent
 case node['platform_family']
 when 'debian', 'rhel'
-  p_serv_name = 'cphalod'
   package 'cphalo' do
     action :install
   end
@@ -56,7 +55,7 @@ when 'debian', 'rhel'
       configurator.linux_configuration].join(' ')
     action :run
     # We don't run the configurator if the store.db file already exists
-    not_if { File.exist?('/opt/cloudpassage/data/store.db') }
+    not_if 'test -e /opt/cloudpassage/data/store.db'
   end
   service 'cphalod' do
     supports [:start, :stop, :restart]
@@ -66,13 +65,13 @@ when 'debian', 'rhel'
     action :start
   end
 when 'windows'
-  p_serv_name = 'CloudPassage Halo Agent'
-  windows_package 'CloudPassage Halo' do
+  package 'CloudPassage Halo' do
     source configurator.windows_installation_path
     options configurator.windows_configuration
     installer_type :custom
     action :install
   end
-  service 'CloudPassage Halo Agent'
-  action [:enable, :start]
+  service 'CloudPassage Halo Agent' do
+    action [:enable, :start]
+  end
 end

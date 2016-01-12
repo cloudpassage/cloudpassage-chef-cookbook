@@ -1,7 +1,7 @@
-source "https://supermarket.chef.io"
+source 'https://supermarket.chef.io'
 
 metadata
 
-cookbook "apt"
-cookbook "yum"
-cookbook "windows"
+cookbook 'apt'
+cookbook 'yum'
+cookbook 'windows'

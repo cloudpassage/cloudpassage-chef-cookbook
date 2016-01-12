@@ -1,62 +1,82 @@
 require 'chefspec'
+require 'chefspec/berkshelf'
 
 describe 'cloudpassage-halo' do
-  let(:chef_run) { ChefSpec::SoloRunner.converge(described_recipe) }
+  test_platforms = [['debian', '7.0', 'cphalod', 'cphalo'],
+                    ['redhat', '6.0', 'cphalod', 'cphalo'],
+                    ['windows', '2012', 'CloudPassage Halo Agent',
+                     'CloudPassage Halo']]
+  test_platforms.each do |platform, version, process, package|
+    describe "for #{platform} #{version} #{process}" do
+      context 'Halo is not already configured' do
+        before(:all) do
+          stub_command('test -e /opt/cloudpassage/data/store.db')
+            .and_return(false)
+          @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
+                                               version: "#{version}")
+          @chef_run.converge(described_recipe)
+        end
+        it 'Sets up repo for Debian Linux' do
+          if platform == 'debian'
+            expect(@chef_run).to add_apt_repository('cloudpassage')
+          end
+        end
+        it 'Sets up repo for CentOS Linux' do
+          if platform == 'centos'
+            expect(@chef_run).to add_yum_repository('cloudpassage')
+          end
+        end
+        it 'Installs CloudPassage Halo' do
+          if platform != 'windows'
+            expect(@chef_run).to install_package(package)
+          else
+            expect(@chef_run).to install_package(package)
+          end
+        end
+        it 'Configures CloudPassage Halo' do
+          if platform != 'windows'
+            expect(@chef_run).to run_execute('cphalo-config')
+          end
+        end
+      end
 
-  it 'Installs CloudPassage Halo on Debian' do
-    chef_run.node.set['platform_family'] = 'debian'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to install_package('cphalo')
+      context 'Halo is already configured' do
+        before(:all) do
+          stub_command('test -e /opt/cloudpassage/data/store.db')
+            .and_return(true)
+          @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
+                                               version: "#{version}")
+          @chef_run.converge(described_recipe)
+        end
+        it 'Skips configuration if store.db exists' do
+          if platform != 'windows'
+            expect(@chef_run).not_to run_execute('cphalo-config')
+          end
+        end
+      end
+
+      context 'Halo repository links in attributes file are empty' do
+        before(:all) do
+          stub_command('test -e /opt/cloudpassage/data/store.db')
+            .and_return(false)
+          @chef_run = ChefSpec::SoloRunner.new
+          @chef_run.node.default['platform'] = "#{platform}"
+          @chef_run.node.default['version'] = "#{version}"
+          @chef_run.node.set['cloudpassage_halo']['apt_repo_url'] = ''
+          @chef_run.node.set['cloudpassage_halo']['yum_repo_url'] = ''
+          @chef_run.converge(described_recipe)
+        end
+        it 'Skips configuration of apt repo if repo link is empty' do
+          if platform == 'debian'
+            expect(@chef_run).not_to add_apt_repository('cloudpassage')
+          end
+        end
+        it 'Skips configuration of yum repo if repo link is empty' do
+          if platform == 'centos'
+            expect(@chef_run).not_to add_yum_repository('cloudpassage')
+          end
+        end
+      end
+    end
   end
-
-  it 'Installs CloudPassage Halo on RedHat' do
-    chef_run.node.set['platform_family'] = 'rhel'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to install_package('cphalo')
-  end
-
-  it 'Installs CloudPassage Halo on Windows' do
-    chef_run.node.set['platform_family'] = 'windows'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to install_package('cphalo')
-  end
-
-  it 'Upgrades CloudPassage Halo on Debian' do
-    chef_run.node.set['platform_family'] = 'debian'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to upgrade_package('cphalo').with(version: '1.0')
-  end
-
-  it 'Upgrades CloudPassage Halo on RedHat' do
-    chef_run.node.set['platform_family'] = 'rhel'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to upgrade_package('cphalo').with(version: '1.0')
-  end
-
-  it 'Upgrades CloudPassage Halo on Windows' do
-    chef_run.node.set['platform_family'] = 'windows'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to upgrade_package('CloudPassage Halo')
-      .with(version: '1.0')
-  end
-
-
-  it 'Does nothing if installed and running, with no available upgrade' do
-    chef_run.node.set['platform_family'] = 'debian'
-    chef_run.converge(described_recipe)
-
-  end
-
-  it 'Does not configure CloudPassage Halo if the store.db file exists' do
-    # Mock up the store.db file
-    allow(File).to receive(:exist?)
-      .and_call_original
-    allow(File).to receive(:exist?)
-      .with('/opt/cloudpassage/data/store.db')
-      .and_return(true)
-    # Mock up the environment
-    chef_run.node.set['platform_family'] = 'debian'
-
-  end
-
 end

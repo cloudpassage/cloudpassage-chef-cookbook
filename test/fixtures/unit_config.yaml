@@ -16,5 +16,5 @@ windows_installer_file_name: WindowsInstaller.exe
 win_xmas_tree_config: /S /AGENT-KEY=12345abcde /grid="https://grid.cloudpassage.com/grid" /SERVER-LABEL="Nunnya" /TAG="Whatevs" /read-only=false /proxy=proxy.host.not:8081 /proxy-user="somebody" /proxy-password="nobody's business" /NOSTART
 win_bare_config: /S /AGENT-KEY=12345abcde /grid="https://grid.cloudpassage.com/grid" /read-only=false /NOSTART
 win_full_install_path: https://packages.nonexist.not:443/dev/null/WindowsInstaller.exe
-lin_xmas_tree_config: --agent-key=12345abcde --grid="https://grid.cloudpassage.com/grid" --server-label="Nunnya" --tag="Whatevs" --readonly=false --proxy=proxy.host.not:8081 --proxy-user="somebody" --proxy-password="nobody's business"
-lin_bare_config: --agent-key=12345abcde --grid="https://grid.cloudpassage.com/grid" --readonly=false
+lin_xmas_tree_config: --agent-key=12345abcde --grid="https://grid.cloudpassage.com/grid" --server-label="Nunnya" --tag="Whatevs" --read-only=false --proxy=proxy.host.not:8081 --proxy-user="somebody" --proxy-password="nobody's business"
+lin_bare_config: --agent-key=12345abcde --grid="https://grid.cloudpassage.com/grid" --read-only=false

@@ -4,23 +4,21 @@
 #
 # Copyright 2015, CloudPassage
 
-ruby_block 'Try to load encrypted data bag' do
-  begin
-    node.set['cloudpassage_halo']['secrets'] = (
-      Chef::EncryptedDataBagItem.load('credentials', 'halo'))
-    Chef::Log.info('Loaded data bag')
-    node.set['cloudpassage_halo']['agent_key'] = (
-      node['cloudpassage_halo']['secrets']['agent_key'])
-    Chef::Log.info('Loaded agent_key from data bag')
-    node.set['cloudpassage_halo']['proxy_user'] = (
-      node['cloudpassage_halo']['secrets']['proxy_user'])
-    Chef::Log.info('Loaded proxy_user from data bag')
-    node.set['cloudpassage_halo']['proxy_password'] = (
-      node['cloudpassage_halo']['secrets']['proxy_password'])
-    Chef::Log.warn('Loaded proxy_password from data bag')
-  rescue
-    Chef::Log.warn('Unable to completely load data bag and attributes!')
-  end
+begin
+  node.set['cloudpassage_halo']['secrets'] = (
+    Chef::EncryptedDataBagItem.load('credentials', 'halo'))
+  Chef::Log.info('Loaded data bag')
+  node.set['cloudpassage_halo']['agent_key'] = (
+    node['cloudpassage_halo']['secrets']['agent_key'])
+  Chef::Log.info('Loaded agent_key from data bag')
+  node.set['cloudpassage_halo']['proxy_user'] = (
+    node['cloudpassage_halo']['secrets']['proxy_user'])
+  Chef::Log.info('Loaded proxy_user from data bag')
+  node.set['cloudpassage_halo']['proxy_password'] = (
+    node['cloudpassage_halo']['secrets']['proxy_password'])
+  Chef::Log.warn('Loaded proxy_password from data bag')
+rescue
+  Chef::Log.warn('Unable to completely load data bag and attributes!')
 end
 
 config = node['cloudpassage_halo']

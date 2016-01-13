@@ -9,14 +9,13 @@ default['cloudpassage_halo']['read_only'] = false
 default['cloudpassage_halo']['server_tag'] = ''
 default['cloudpassage_halo']['server_label'] = ''
 default['cloudpassage_halo']['dns'] = true
-default['cloudpassage_halo']['suppress_cloudpassage_repo'] = false
 default['cloudpassage_halo']['windows_installer_protocol'] = 'https'
 default['cloudpassage_halo']['windows_installer_port'] = '443'
 default['cloudpassage_halo']['windows_installer_host'] = (
   'packages.cloudpassage.com')
 default['cloudpassage_halo']['windows_installer_path'] = '/windows/'
 default['cloudpassage_halo']['windows_installer_file_name'] = (
-  'cphalo-3.2.10-win64.exe')
+  'cphalo-3.6.6-win64.exe')
 default['cloudpassage_halo']['apt_repo_url'] = (
   'http://packages.cloudpassage.com/debian')
 default['cloudpassage_halo']['apt_repo_distribution'] = 'debian'

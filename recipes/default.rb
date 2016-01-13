@@ -87,14 +87,14 @@ when 'windows'
   # Ruby doesn't load the Win32 libraries on non-Windows platforms,
   # and thusly bombs out when tested on non-Win platforms.
   # win_start_options = '/S' if is_package_installed?('CloudPassage Halo')
-  
+
   windows_package 'CloudPassage Halo' do
     source configurator.windows_installation_path
     options win_start_options
     installer_type :custom
     action :install
   end
-  service 'CloudPassage Halo Agent' do
+  service 'cphalo' do
     action [:enable, :start]
   end
 end

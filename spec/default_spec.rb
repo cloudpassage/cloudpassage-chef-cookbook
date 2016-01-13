@@ -28,7 +28,7 @@ describe 'cloudpassage-halo' do
         end
         it 'Installs CloudPassage Halo.' do
           if platform != 'windows'
-            expect(@chef_run).to install_package(package)
+            expect(@chef_run).to upgrade_package(package)
           else
             expect(@chef_run).to install_windows_package(package)
           end

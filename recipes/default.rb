@@ -4,12 +4,26 @@
 #
 # Copyright 2015, CloudPassage
 
-# Instantiate config helper
+::Chef::Recipe.send(:include, Windows::Helper)
+
+begin
+  node.set['cloudpassage_halo']['secrets'] = (
+    Chef::EncryptedDataBagItem.load('credentials', 'halo'))
+  Chef::Log.info('Loaded data bag')
+  node.set['cloudpassage_halo']['agent_key'] = (
+    node['cloudpassage_halo']['secrets']['agent_key'])
+  Chef::Log.info('Loaded agent_key from data bag')
+  node.set['cloudpassage_halo']['proxy_user'] = (
+    node['cloudpassage_halo']['secrets']['proxy_user'])
+  Chef::Log.info('Loaded proxy_user from data bag')
+  node.set['cloudpassage_halo']['proxy_password'] = (
+    node['cloudpassage_halo']['secrets']['proxy_password'])
+  Chef::Log.warn('Loaded proxy_password from data bag')
+rescue
+  Chef::Log.warn('Unable to completely load data bag and attributes!')
+end
 
 config = node['cloudpassage_halo']
-
-# Add a routine to merge data bag config items over attribute file-configured
-# keys
 
 configurator = CloudPassage::ConfigHelper.new(
   config['agent_key'],
@@ -47,7 +61,7 @@ end
 case node['platform_family']
 when 'debian', 'rhel'
   package 'cphalo' do
-    action :install
+    action :upgrade
   end
   execute 'cphalo-config' do
     command [
@@ -65,9 +79,18 @@ when 'debian', 'rhel'
     action :start
   end
 when 'windows'
-  package 'CloudPassage Halo' do
+  win_start_options = configurator.windows_configuration
+  # If the Halo agent is already installed, assume upgrade and
+  # don't re-register with agent key, etc.
+
+  # Get Chef people's advice on writing chefspec tests for this-
+  # Ruby doesn't load the Win32 libraries on non-Windows platforms,
+  # and thusly bombs out when tested on non-Win platforms.
+  # win_start_options = '/S' if is_package_installed?('CloudPassage Halo')
+  
+  windows_package 'CloudPassage Halo' do
     source configurator.windows_installation_path
-    options configurator.windows_configuration
+    options win_start_options
     installer_type :custom
     action :install
   end

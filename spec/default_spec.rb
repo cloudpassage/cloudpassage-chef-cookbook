@@ -4,7 +4,13 @@ require 'chefspec/berkshelf'
 describe 'cloudpassage-halo' do
   test_platforms = [['debian', '7.0', 'cphalod', 'cphalo'],
                     ['redhat', '6.0', 'cphalod', 'cphalo'],
+                    ['redhat', '6.5', 'cphalod', 'cphalo'],
+                    ['redhat', '7.0', 'cphalod', 'cphalo'],
+                    ['windows', '2008R2', 'CloudPassage Halo Agent',
+                     'CloudPassage Halo'],
                     ['windows', '2012', 'CloudPassage Halo Agent',
+                     'CloudPassage Halo'],
+                    ['windows', '2012R2', 'CloudPassage Halo Agent',
                      'CloudPassage Halo']]
   test_platforms.each do |platform, version, process, package|
     describe "for #{platform} #{version}. #{process}." do
@@ -49,8 +55,21 @@ describe 'cloudpassage-halo' do
           @chef_run.converge(described_recipe)
         end
         it 'Skips configuration if store.db exists.' do
+          allow(File)
+            .to receive(:exist?)
+            .and_call_original
+          allow(File)
+            .to receive(:exist?)
+            .with('%PROGRAMFILES%/CloudPassage/data/store.db')
+            .and_return(true)
+          @chef_run.converge(described_recipe)
           if platform != 'windows'
             expect(@chef_run).not_to run_execute('cphalo-config')
+          end
+          if platform == 'windows'
+            expect(@chef_run)
+              .to install_windows_package('CloudPassage Halo')
+              .with(options: '/S')
           end
         end
       end

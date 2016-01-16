@@ -80,12 +80,6 @@ when 'debian', 'rhel'
   end
 when 'windows'
   win_start_options = configurator.windows_configuration
-  # If the Halo agent is already installed, assume upgrade and
-  # don't re-register with agent key, etc.
-
-  # Get Chef people's advice on writing chefspec tests for this-
-  # Ruby doesn't load the Win32 libraries on non-Windows platforms,
-  # and thusly bombs out when tested on non-Win platforms.
   win_start_options = '/S' if ::File.exist?(
     '%PROGRAMFILES%/CloudPassage/data/store.db')
   windows_package 'CloudPassage Halo' do

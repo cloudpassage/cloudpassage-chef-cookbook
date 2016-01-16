@@ -4,7 +4,7 @@
 #
 # Copyright 2015, CloudPassage
 
-::Chef::Recipe.send(:include, Windows::Helper)
+# ::Chef::Recipe.send(:include, Windows::Helper)
 
 begin
   node.set['cloudpassage_halo']['secrets'] = (
@@ -80,14 +80,8 @@ when 'debian', 'rhel'
   end
 when 'windows'
   win_start_options = configurator.windows_configuration
-  # If the Halo agent is already installed, assume upgrade and
-  # don't re-register with agent key, etc.
-
-  # Get Chef people's advice on writing chefspec tests for this-
-  # Ruby doesn't load the Win32 libraries on non-Windows platforms,
-  # and thusly bombs out when tested on non-Win platforms.
-  # win_start_options = '/S' if is_package_installed?('CloudPassage Halo')
-
+  win_start_options = '/S' if ::File.exist?(
+    '%PROGRAMFILES%/CloudPassage/data/store.db')
   windows_package 'CloudPassage Halo' do
     source configurator.windows_installation_path
     options win_start_options

@@ -1,7 +1,7 @@
 require 'chefspec'
 require 'chefspec/berkshelf'
 
-describe 'cloudpassage-halo' do
+describe 'cloudpassage' do
   test_platforms = [['debian', '7.0', 'cphalod', 'cphalo'],
                     ['redhat', '6.0', 'cphalod', 'cphalo'],
                     ['redhat', '6.5', 'cphalod', 'cphalo'],
@@ -81,8 +81,8 @@ describe 'cloudpassage-halo' do
           @chef_run = ChefSpec::SoloRunner.new
           @chef_run.node.default['platform'] = "#{platform}"
           @chef_run.node.default['version'] = "#{version}"
-          @chef_run.node.set['cloudpassage_halo']['apt_repo_url'] = ''
-          @chef_run.node.set['cloudpassage_halo']['yum_repo_url'] = ''
+          @chef_run.node.set['cloudpassage']['apt_repo_url'] = ''
+          @chef_run.node.set['cloudpassage']['yum_repo_url'] = ''
           @chef_run.converge(described_recipe)
         end
         it 'Skips configuration of apt repo if repo link is empty.' do

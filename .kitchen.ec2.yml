@@ -1,0 +1,32 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: <%= ENV['KITCHEN_AWS_SSH_KEY_ID'] %>
+  security_group_ids: <%= ENV['KITCHEN_AWS_SECURITY_GROUPS'] %>
+  region: <%= ENV['KITCHEN_AWS_REGION'] %>
+  availability_zone: b
+  require_chef_omnibus: true
+  subnet_id: <%= ENV['KITCHEN_AWS_SUBNET_ID'] %>
+  instance_type: m3.medium
+  associate_public_ip: true
+  interface: dns
+
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+  - name: ubuntu-12.10
+  - name: ubuntu-14.04
+  - name: centos-6.4
+  - name: windows-2012r2
+  - name: windows-2008r2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[cloudpassage::default]
+    attributes:
+      cloudpassage:
+        agent_key: <%= ENV['HALO_AGENT_KEY'] %>

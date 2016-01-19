@@ -1,4 +1,4 @@
-name 'cloudpassage-halo'
+name 'cloudpassage'
 maintainer 'CloudPassage'
 maintainer_email 'toolbox@cloudpassage.com'
 license 'BSD'

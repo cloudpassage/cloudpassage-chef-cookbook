@@ -17,11 +17,9 @@ namespace :spec do
 end
 
 namespace :integration do
-  task :vagrant do
-    puts 'Running Kitchen'
-    require 'kitchen/rake_tasks'
-    Kitchen::RakeTasks.new
-  end
+  require 'kitchen/rake_tasks'
+  desc 'Run kitchen tests'
+  Kitchen::RakeTasks.new
 end
 
 desc 'Runs all style checks'
@@ -31,13 +29,6 @@ desc 'Runs spec tests'
 task spec: ['spec:spec']
 
 desc 'Runs all integration tests using vagrant'
-task integration: ['integration:vagrant']
+task integration: ['integration:kitchen:all']
 
 task default: [:style, :spec, :integration]
-
-# begin
-#  require 'kitchen/rake_tasks'
-#  Kitchen::RakeTasks.new
-# rescue LoadError
-#  puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
-# end

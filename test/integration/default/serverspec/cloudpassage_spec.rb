@@ -1,6 +1,10 @@
 require 'serverspec'
 
-set :backend, :exec
+if ENV['OS'] == 'Windows_NT'
+  set :backend, :cmd
+else
+  set :backend, :exec
+end
 
 describe 'CloudPassage Halo agent for Linux' do
   if os[:family] != 'windows'
@@ -21,11 +25,12 @@ end
 
 describe 'CloudPassage Halo agent for Windows' do
   if os[:family] == 'windows'
+    progfiles = ENV['PROGRAMW6432']
     it 'is installed' do
       expect(package('CloudPassage Halo')).to be_installed
     end
     it 'is configured' do
-      expect(file('%PROGRAMFILES%/CloudPassage/data/store.db')).to exist
+      expect(file("#{progfiles}\\CloudPassage\\data\\store.db")).to exist
     end
     it 'is enabled' do
       expect(service('cphalo')).to be_enabled

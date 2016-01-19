@@ -1,12 +1,11 @@
 #
-# Cookbook Name:: cloudpassage-halo
+# Cookbook Name:: cloudpassage
 # Recipe:: default
 #
-# Copyright 2015, CloudPassage
+# Copyright 2016, CloudPassage
 
-include_recipe 'apt'
-include_recipe 'yum'
-include_recipe 'windows' if node['platform_family'] == 'windows'
+include_recipe 'apt' if node['platform_family'] == 'debian'
+include_recipe 'yum' if node['platform_family'] == 'rhel'
 
 begin
   node.set['cloudpassage']['secrets'] = (
@@ -83,12 +82,17 @@ when 'debian', 'rhel'
     action [:restart]
   end
 when 'windows'
+  win_installer_version = node[:cloudpassage][:windows_installer_file_name]
+                          .gsub(/.*cphalo-(\d*\.\d*\.\d*)-win64.exe/, '\1')
   win_start_options = configurator.windows_configuration
+  progfiles = ENV['PROGRAMW6432']
+  Chef::Log.info("Detected ProgramFiles directory: #{progfiles}")
   win_start_options = '/S' if ::File.exist?(
-    '%PROGRAMFILES%/CloudPassage/data/store.db')
+    "#{progfiles}\\CloudPassage\\data\\store.db")
   windows_package 'CloudPassage Halo' do
     source configurator.windows_installation_path
     options win_start_options
+    version win_installer_version
     installer_type :custom
     action :install
   end

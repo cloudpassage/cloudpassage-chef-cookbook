@@ -8,7 +8,7 @@ This cookbook installs CloudPassage Halo on Windows, Debian-based \
 
 ## Requirements and dependencies
 
-This cookbook depends on the yum, apt, and windows cookbooks.
+This cookbook depends on the yum and apt cookbooks.
 
 ## List of Files
 

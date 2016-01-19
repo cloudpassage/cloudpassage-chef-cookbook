@@ -1,27 +1,47 @@
 ---
+# Requires environment variables for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
 driver:
   name: ec2
   aws_ssh_key_id: <%= ENV['KITCHEN_AWS_SSH_KEY_ID'] %>
-  security_group_ids: <%= ENV['KITCHEN_AWS_SECURITY_GROUPS'] %>
   region: <%= ENV['KITCHEN_AWS_REGION'] %>
-  availability_zone: b
+  availability_zone: a
   require_chef_omnibus: true
   subnet_id: <%= ENV['KITCHEN_AWS_SUBNET_ID'] %>
   instance_type: m3.medium
   associate_public_ip: true
   interface: dns
 
+transport:
+  ssh_key: <%= ENV['KITCHEN_AWS_KEY_FILE'] %>
+  connection_timeout: 10
+  connection_retries: 5
 
 provisioner:
   name: chef_solo
 
 platforms:
   - name: ubuntu-12.04
-  - name: ubuntu-12.10
+    driver:
+      image_id: ami-01470531
+    transport:
+      username: ubuntu
   - name: ubuntu-14.04
-  - name: centos-6.4
+    driver:
+      image_id: ami-5189a661
+    transport:
+      username: ubuntu
+  - name: rhel-7.2
+    driver:
+      image_id: ami-775e4f16
+    transport:
+      username: ec2-user
   - name: windows-2012r2
-  - name: windows-2008r2
+    driver:
+      image_id: ami-83a5bce2
+  # Memory allocation for WinRM prevents 2008R2 from working
+  # - name: windows-2008r2
+  #   driver:
+  #     image_id: ami-c5a7bea4
 
 suites:
   - name: default

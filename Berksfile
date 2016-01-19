@@ -4,4 +4,3 @@ metadata
 
 cookbook 'apt'
 cookbook 'yum'
-cookbook 'windows'

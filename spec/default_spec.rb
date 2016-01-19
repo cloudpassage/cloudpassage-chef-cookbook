@@ -1,6 +1,7 @@
 require 'chefspec'
 require 'chefspec/berkshelf'
 
+ENV['PROGRAMW6432'] = 'C:\Program Files'
 describe 'cloudpassage' do
   test_platforms = [['debian', '7.0', 'cphalod', 'cphalo'],
                     ['redhat', '6.0', 'cphalod', 'cphalo'],
@@ -60,7 +61,7 @@ describe 'cloudpassage' do
             .and_call_original
           allow(File)
             .to receive(:exist?)
-            .with('%PROGRAMFILES%/CloudPassage/data/store.db')
+            .with('C:\Program Files\CloudPassage\data\store.db')
             .and_return(true)
           @chef_run.converge(described_recipe)
           if platform != 'windows'

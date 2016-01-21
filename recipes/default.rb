@@ -82,7 +82,7 @@ when 'debian', 'rhel'
     action [:restart]
   end
 when 'windows'
-  win_installer_version = node[:cloudpassage][:windows_installer_file_name]
+  win_installer_version = config['windows_installer_file_name']
                           .gsub(/.*cphalo-(\d*\.\d*\.\d*)-win64.exe/, '\1')
   win_start_options = configurator.windows_configuration
   progfiles = ENV['PROGRAMW6432']

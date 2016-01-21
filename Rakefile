@@ -17,9 +17,17 @@ namespace :spec do
 end
 
 namespace :integration do
-  require 'kitchen/rake_tasks'
-  desc 'Run kitchen tests'
-  Kitchen::RakeTasks.new
+  require 'kitchen/cli'
+  task :vagrant do
+    desc 'Run kitchen-vagrant tests'
+    ENV['KITCHEN_YAML'] = '.kitchen.yml'
+    Kitchen::CLI.new([], concurrency: 4, destroy: 'always').test
+  end
+  task :ec2 do
+    desc 'Run kitchen-vagrant tests'
+    ENV['KITCHEN_YAML'] = '.kitchen.ec2.yml'
+    Kitchen::CLI.new([], concurrency: 4, destroy: 'always').test
+  end
 end
 
 desc 'Runs all style checks'
@@ -28,7 +36,7 @@ task style: ['style:chef', 'style:ruby']
 desc 'Runs spec tests'
 task spec: ['spec:spec']
 
-desc 'Runs all integration tests using vagrant'
-task integration: ['integration:kitchen:all']
+desc 'Runs all integration tests using kitchen-vagrant and kitchen-ec2'
+task integration: ['integration:vagrant', 'integration:ec2']
 
 task default: [:style, :spec, :integration]

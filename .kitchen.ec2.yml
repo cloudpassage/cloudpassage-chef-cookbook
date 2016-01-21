@@ -38,10 +38,11 @@ platforms:
   - name: windows-2012r2
     driver:
       image_id: ami-83a5bce2
-  # Memory allocation for WinRM prevents 2008R2 from working
+  # You'll need to build your own AMI with Powershell v4 installed.
+  # Otherwise, comment out windows-2008r2 below.
   # - name: windows-2008r2
   #   driver:
-  #     image_id: ami-c5a7bea4
+  #     image_id: <%= ENV['AWS_AMI_2008R2'] %>
 
 suites:
   - name: default

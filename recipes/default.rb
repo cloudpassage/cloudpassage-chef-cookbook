@@ -8,20 +8,36 @@ include_recipe 'apt' if node['platform_family'] == 'debian'
 include_recipe 'yum' if node['platform_family'] == 'rhel'
 
 begin
-  node.set['cloudpassage']['secrets'] = (
-    Chef::EncryptedDataBagItem.load('credentials', 'halo'))
+  node.set['cloudpassage']['bagged'] = data_bag('cloudpassage')
   Chef::Log.info('Loaded data bag')
   node.set['cloudpassage']['agent_key'] = (
-    node['cloudpassage']['secrets']['agent_key'])
+    node['cloudpassage']['bagged']['agent_key'])
   Chef::Log.info('Loaded agent_key from data bag')
   node.set['cloudpassage']['proxy_user'] = (
-    node['cloudpassage']['secrets']['proxy_user'])
+    node['cloudpassage']['bagged']['proxy_user'])
   Chef::Log.info('Loaded proxy_user from data bag')
   node.set['cloudpassage']['proxy_password'] = (
-    node['cloudpassage']['secrets']['proxy_password'])
-  Chef::Log.warn('Loaded proxy_password from data bag')
+    node['cloudpassage']['bagged']['proxy_password'])
+  Chef::Log.info('Loaded proxy_password from data bag')
 rescue
   Chef::Log.warn('Unable to completely load data bag and attributes!')
+end
+
+begin
+  node.set['cloudpassage']['secrets'] = (
+    Chef::EncryptedDataBagItem.load('credentials', 'halo'))
+  Chef::Log.info('Loaded encrypted data bag')
+  node.set['cloudpassage']['agent_key'] = (
+    node['cloudpassage']['secrets']['agent_key'])
+  Chef::Log.info('Loaded agent_key from encrypted data bag')
+  node.set['cloudpassage']['proxy_user'] = (
+    node['cloudpassage']['secrets']['proxy_user'])
+  Chef::Log.info('Loaded proxy_user from encrypted data bag')
+  node.set['cloudpassage']['proxy_password'] = (
+    node['cloudpassage']['secrets']['proxy_password'])
+  Chef::Log.info('Loaded proxy_password from encrypted data bag')
+rescue
+  Chef::Log.warn('Unable to completely load encrypted data bag and attributes!')
 end
 
 config = node['cloudpassage']

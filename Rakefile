@@ -16,17 +16,27 @@ namespace :spec do
   RSpec::Core::RakeTask.new(:spec)
 end
 
+namespace :integration do
+  require 'kitchen/cli'
+  task :vagrant do
+    desc 'Run kitchen-vagrant tests'
+    ENV['KITCHEN_YAML'] = '.kitchen.yml'
+    Kitchen::CLI.new([], concurrency: 4, destroy: 'always').test
+  end
+  task :ec2 do
+    desc 'Run kitchen-vagrant tests'
+    ENV['KITCHEN_YAML'] = '.kitchen.ec2.yml'
+    Kitchen::CLI.new([], concurrency: 4, destroy: 'always').test
+  end
+end
+
 desc 'Runs all style checks'
 task style: ['style:chef', 'style:ruby']
 
 desc 'Runs spec tests'
 task spec: ['spec:spec']
 
-task default: [:style, :spec]
+desc 'Runs all integration tests using kitchen-vagrant and kitchen-ec2'
+task integration: ['integration:vagrant', 'integration:ec2']
 
-begin
-  require 'kitchen/rake_tasks'
-  Kitchen::RakeTasks.new
-rescue LoadError
-  puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
-end
+task default: [:style, :spec, :integration]

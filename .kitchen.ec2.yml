@@ -1,0 +1,53 @@
+---
+# Requires environment variables for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+driver:
+  name: ec2
+  aws_ssh_key_id: <%= ENV['KITCHEN_AWS_SSH_KEY_ID'] %>
+  region: <%= ENV['KITCHEN_AWS_REGION'] %>
+  availability_zone: a
+  require_chef_omnibus: true
+  subnet_id: <%= ENV['KITCHEN_AWS_SUBNET_ID'] %>
+  instance_type: m3.medium
+  associate_public_ip: true
+  interface: dns
+
+transport:
+  ssh_key: <%= ENV['KITCHEN_AWS_KEY_FILE'] %>
+  connection_timeout: 10
+  connection_retries: 5
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+    driver:
+      image_id: ami-01470531
+    transport:
+      username: ubuntu
+  - name: ubuntu-14.04
+    driver:
+      image_id: ami-5189a661
+    transport:
+      username: ubuntu
+  - name: rhel-7.2
+    driver:
+      image_id: ami-775e4f16
+    transport:
+      username: ec2-user
+  - name: windows-2012r2
+    driver:
+      image_id: ami-83a5bce2
+  # You'll need to build your own AMI with Powershell v4 installed.
+  # Otherwise, comment out windows-2008r2 below.
+  # - name: windows-2008r2
+  #   driver:
+  #     image_id: <%= ENV['AWS_AMI_2008R2'] %>
+
+suites:
+  - name: default
+    run_list:
+      - recipe[cloudpassage::default]
+    attributes:
+      cloudpassage:
+        agent_key: <%= ENV['HALO_AGENT_KEY'] %>

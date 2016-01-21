@@ -126,6 +126,34 @@ describe 'cloudpassage' do
           end
         end
       end
+
+      context 'Data bag is used for sensitive information.' do
+        before(:all) do
+          stub_command('test -e /opt/cloudpassage/data/store.db')
+            .and_return(false)
+          @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
+                                               version: "#{version}")
+          @chef_run.converge(described_recipe)
+        end
+        it 'Uses secrets from databag.' do
+          stub_data_bag('cloudpassage')
+            .and_return(
+              'agent_key' => 'data_bag_agent_key',
+              'proxy_user' => 'data_bag_proxy_user',
+              'proxy_password' => 'data_bag_proxy_password')
+          @chef_run.converge(described_recipe)
+          if platform != 'windows'
+            expect(@chef_run)
+              .to run_execute('cphalo-config')
+              .with(command: /.*configure.*data_bag.*data_bag.*data_bag.*/)
+          end
+          if platform == 'windows'
+            expect(@chef_run)
+              .to install_windows_package('CloudPassage Halo')
+              .with(options: /.*AGENT-KEY.*data_bag.*data_bag.*data_bag.*/)
+          end
+        end
+      end
     end
   end
 end

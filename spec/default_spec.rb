@@ -17,8 +17,6 @@ describe 'cloudpassage' do
     describe "for #{platform} #{version}. #{process}." do
       context 'Halo is not already configured.' do
         before(:all) do
-          stub_command('test -e /opt/cloudpassage/data/store.db')
-            .and_return(false)
           @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
                                                version: "#{version}")
           @chef_run.converge(described_recipe)
@@ -49,8 +47,6 @@ describe 'cloudpassage' do
 
       context 'Halo is already configured.' do
         before(:all) do
-          stub_command('test -e /opt/cloudpassage/data/store.db')
-            .and_return(true)
           @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
                                                version: "#{version}")
           @chef_run.converge(described_recipe)
@@ -62,6 +58,10 @@ describe 'cloudpassage' do
           allow(File)
             .to receive(:exist?)
             .with('C:\Program Files\CloudPassage\data\store.db')
+            .and_return(true)
+          allow(File)
+            .to receive(:exist?)
+            .with('/opt/cloudpassage/data/store.db')
             .and_return(true)
           @chef_run.converge(described_recipe)
           if platform != 'windows'
@@ -77,8 +77,6 @@ describe 'cloudpassage' do
 
       context 'Halo repository links in attributes file are empty.' do
         before(:all) do
-          stub_command('test -e /opt/cloudpassage/data/store.db')
-            .and_return(false)
           @chef_run = ChefSpec::SoloRunner.new
           @chef_run.node.default['platform'] = "#{platform}"
           @chef_run.node.default['version'] = "#{version}"
@@ -100,8 +98,6 @@ describe 'cloudpassage' do
 
       context 'Encrypted data bag is used for sensitive information.' do
         before(:all) do
-          stub_command('test -e /opt/cloudpassage/data/store.db')
-            .and_return(false)
           @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
                                                version: "#{version}")
           @chef_run.converge(described_recipe)
@@ -129,8 +125,6 @@ describe 'cloudpassage' do
 
       context 'Data bag is used for sensitive information.' do
         before(:all) do
-          stub_command('test -e /opt/cloudpassage/data/store.db')
-            .and_return(false)
           @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
                                                version: "#{version}")
           @chef_run.converge(described_recipe)

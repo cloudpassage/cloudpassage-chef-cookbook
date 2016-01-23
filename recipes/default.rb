@@ -7,45 +7,27 @@
 include_recipe 'apt' if node['platform_family'] == 'debian'
 include_recipe 'yum' if node['platform_family'] == 'rhel'
 
-begin
-  node.set['cloudpassage']['bagged'] = data_bag('cloudpassage')
-  Chef::Log.info('Loaded data bag')
-  node.set['cloudpassage']['agent_key'] = node['cloudpassage']['bagged']['agent_key']
-  Chef::Log.info('Loaded agent_key from data bag')
-  node.set['cloudpassage']['proxy_user'] = node['cloudpassage']['bagged']['proxy_user']
-  Chef::Log.info('Loaded proxy_user from data bag')
-  node.set['cloudpassage']['proxy_password'] = node['cloudpassage']['bagged']['proxy_password']
-  Chef::Log.info('Loaded proxy_password from data bag')
-rescue
-  Chef::Log.warn('Unable to completely load data bag and attributes!')
-end
-
-begin
-  node.set['cloudpassage']['secrets'] = Chef::EncryptedDataBagItem.load('credentials', 'halo')
-  Chef::Log.info('Loaded encrypted data bag')
-  node.set['cloudpassage']['agent_key'] = node['cloudpassage']['secrets']['agent_key']
-  Chef::Log.info('Loaded agent_key from encrypted data bag')
-  node.set['cloudpassage']['proxy_user'] = node['cloudpassage']['secrets']['proxy_user']
-  Chef::Log.info('Loaded proxy_user from encrypted data bag')
-  node.set['cloudpassage']['proxy_password'] = node['cloudpassage']['secrets']['proxy_password']
-  Chef::Log.info('Loaded proxy_password from encrypted data bag')
-rescue
-  Chef::Log.warn('Unable to completely load encrypted data bag and attributes!')
-end
-
+# Grab config from attributes file
 config = node['cloudpassage']
 
-configurator = CloudPassage::ConfigHelper.new(
-  config['agent_key'],
-  grid_url: config['grid_url'], proxy_host: config['proxy_host'],
-  proxy_port: config['proxy_port'], read_only: config['read_only'],
-  server_tag: config['server_tag'], server_label: config['server_label'],
-  proxy_user: config['proxy_user'], proxy_password: config['proxy_password'],
-  windows_installer_protocol: config['windows_installer_protocol'],
-  windows_installer_host: config['windows_installer_host'],
-  windows_installer_port: config['windows_installer_port'],
-  windows_installer_path: config['windows_installer_path'],
-  windows_installer_file_name: config['windows_installer_file_name'])
+# Attempt to load databag.  If it fails, set it to an empty hash.
+begin
+  dbconfig = data_bag('cloudpassage')
+rescue
+  dbconfig = {}
+end
+
+# Attempt to load encrypted databag.  If it fails, set it to an empty hash.
+begin
+  edbconfig = Chef::EncryptedDataBagItem.load('credentials', 'halo')
+rescue
+  edbconfig = {}
+end
+
+# Build a configurator object with all configs.  It'll sort out prescedence.
+configurator = CloudPassage::ConfigHelper.new(base_config: config,
+                                              databag_config: dbconfig,
+                                              encrypted_databag_config: edbconfig)
 
 # Set up repositories for Linux
 case node['platform_family']

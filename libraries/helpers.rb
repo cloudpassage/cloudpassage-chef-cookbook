@@ -8,17 +8,29 @@ class Chef
     # windows_configuration_variables and linux_configuration_variables,
     # respectively
     class ConfigHelper
-      def initialize(agent_key, opt = {})
-        @agent_key = agent_key
-        initialize_params(opt)
-        @win_conf = WinConfig.new(opt)
-        @lin_conf = LinConfig.new(opt)
+      def initialize(opt = {})
+        # Chef::Log.warn("Initialization Data: #{opt}")
+        final_params = initialize_params(opt)
+        @win_conf = WinConfig.new(final_params)
+        @lin_conf = LinConfig.new(final_params)
       end
 
       def initialize_params(params = {})
-        params.each do |key, val|
-          instance_variable_set("@#{key}", val) unless params.empty?
+        final_config = blend_configs(params[:base_config],
+                                     params[:databag_config],
+                                     params[:encrypted_databag_config])
+        final_config.each do |key, val|
+          instance_variable_set("@#{key}", val)
         end
+        final_config
+      end
+
+      def blend_configs(base, databag, edatabag)
+        final_config = {}
+        base.each { |key, val| final_config["#{key}"] = val }
+        databag.each { |key, val| final_config["#{key}"] = val unless databag.nil? }
+        edatabag.each { |key, val| final_config["#{key}"] = val unless edatabag.nil? }
+        final_config
       end
 
       def windows_installation_path

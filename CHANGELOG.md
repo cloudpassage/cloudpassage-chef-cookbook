@@ -18,3 +18,7 @@
 ## 0.3.1:
 
 * Corrected metadata.rb, populated README.md, corrected version in README.md
+
+## 2.0.0:
+
+* Re-work of entire cookbook.  Provides cloudpassage_agent resource for installing agent.

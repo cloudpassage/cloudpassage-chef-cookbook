@@ -4,7 +4,7 @@ rvm:
 
 sudo: required
 
-before_install: curl -L https://getchef.com/chef/install.sh | sudo bash =s -- -P chefdk -v 0.10.0
+before_install: curl -L https://www.chef.io/chef/install.sh | bash -s -- -P chefdk -v 0.10.0
 install: chef exec bundle install
 
 script: chef exec rake travis

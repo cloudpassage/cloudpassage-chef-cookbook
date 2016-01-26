@@ -1,4 +1,4 @@
-agent_key: 12345abcde
+agent_key: fixtureconfig12345
 grid_url: https://grid.cloudpassage.com/grid
 proxy_host: proxy.host.not
 proxy_port: 8081
@@ -13,8 +13,8 @@ windows_installer_port: 443
 windows_installer_host: packages.nonexist.not
 windows_installer_path: /dev/null/
 windows_installer_file_name: WindowsInstaller.exe
-win_xmas_tree_config: /S /AGENT-KEY=12345abcde /grid="https://grid.cloudpassage.com/grid" /SERVER-LABEL="Nunnya" /TAG="Whatevs" /read-only=false /proxy=proxy.host.not:8081 /proxy-user="somebody" /proxy-password="nobody's business" /NOSTART
-win_bare_config: /S /AGENT-KEY=12345abcde /grid="https://grid.cloudpassage.com/grid" /read-only=false /NOSTART
+win_xmas_tree_config: /S /AGENT-KEY=fixtureconfig12345 /grid="https://grid.cloudpassage.com/grid" /SERVER-LABEL="Nunnya" /TAG="Whatevs" /read-only=false /proxy=proxy.host.not:8081 /proxy-user="somebody" /proxy-password="nobody's business" /NOSTART
+win_bare_config: /S /AGENT-KEY=fixtureconfig12345 /grid="https://grid.cloudpassage.com/grid" /read-only=false /NOSTART
 win_full_install_path: https://packages.nonexist.not:443/dev/null/WindowsInstaller.exe
-lin_xmas_tree_config: --agent-key=12345abcde --grid="https://grid.cloudpassage.com/grid" --server-label="Nunnya" --tag="Whatevs" --read-only=false --proxy=proxy.host.not:8081 --proxy-user="somebody" --proxy-password="nobody's business"
-lin_bare_config: --agent-key=12345abcde --grid="https://grid.cloudpassage.com/grid" --read-only=false
+lin_xmas_tree_config: --agent-key=fixtureconfig12345 --grid="https://grid.cloudpassage.com/grid" --server-label="Nunnya" --tag="Whatevs" --read-only=false --proxy=proxy.host.not:8081 --proxy-user="somebody" --proxy-password="nobody's business"
+lin_bare_config: --agent-key=fixtureconfig12345 --grid="https://grid.cloudpassage.com/grid" --read-only=false

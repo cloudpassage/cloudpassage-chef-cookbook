@@ -16,7 +16,6 @@ This cookbook installs and upgrades CloudPassage Halo on Windows, Debian-based
  - CentOS 6.7
  - CentOS 7.1
  - RHEL 7.2
- - Windows Server 2008R2
  - Windows Server 2012R2
 
 ### Tested Chef Versions
@@ -28,7 +27,7 @@ This cookbook installs and upgrades CloudPassage Halo on Windows, Debian-based
  - apt
  - yum
 
-## Usage:
+## Recipe cloudpassage::default usage:
 
 The following attributes are configurable via the attributes/default.rb file:
 
@@ -54,6 +53,10 @@ The following attributes are configurable via the attributes/default.rb file:
     default['cloudpassage']['apt_key_url']
     default['cloudpassage']['yum_key_url']
 
+The default recipe is very versatile, and under most circumstances you will not
+need to configure much more than the ```agent_key``` and ```server_tag``` node
+attributes.  But if you want to go nuts with it, the functionality is there.
+
 
 
 The following configuration options, if delivered in an encrypted data bag, will
@@ -62,6 +65,53 @@ override the defaults in the attributes file:
     agent_key
     proxy_user
     proxy_password
+
+## Resource cloudpassage_agent usage:
+
+The cloudpassage::default recipe calls the cloudpassage_agent resource with
+action :install.  You can call this resource directly from another recipe
+as simply as:
+
+    cloudpassage_agent 'halo' do
+      agent_key AGENT_KEY_GOES_HERE
+      server_tag SERVER_TAG_GOES_HERE
+      action :install
+    end
+
+As with the recipe, you can accept almost all the defaults and rock and roll.  
+You don't even have to define the ```server_tag```, but you'll spend a lot of
+time manually organizing your hosts in the CloudPassage Halo portal if you
+don't.
+
+For your reading pleasure, here is an exhaustive list of properties for the
+cloudpassage_halo resource:
+
+
+| What it is                  | What it does                                                                            |
+|-----------------------------|-----------------------------------------------------------------------------------------|
+| agent_key                   | You MUST define this.  The default value will not register.                             |
+| grid_url                    | Only override this if you're running on your own grid.                                  |
+| proxy_host                  | Tells the agent to use a proxy                                                          |
+| proxy_port                  | Defines the port for the proxy                                                          |
+| proxy_user                  | Define a username for proxy use                                                         |
+| proxy_password              | Define a password for proxy use                                                         |
+| read_only                   | Run the agent in audit mode                                                             |
+| server_tag                  | This determines group placement on agent activation                                     |
+| server_label                | This is a user-defined string that supersedes the hostname when rendered in the portal. |
+| dns                         | Set this to ```false``` to disable DNS resolution by the agent.                         |
+| windows_installer_protocol  | Used for assembling the URL for the Windows installer.                                  |
+| windows_installer_port      | Used for assembling the URL for the Windows installer.                                  |
+| windows_installer_host      | Used for assembling the URL for the Windows installer.                                  |
+| windows_installer_path      | Used for assembling the URL for the Windows installer.                                  |
+| windows_installer_file_name | Used for assembling the URL for the Windows installer.                                  |
+| apt_repo_url                | Only change this if you're running your own repository.                                 |
+| apt_repo_distribution       | Only change this if you're running your own repository.                                 |
+| apt_repo_components         | Only change this if you're running your own repository.                                 |
+| yum_repo_url                | Only change this if you're running your own repository.                                 |
+| apt_key_url                 | Only change this if you're running your own repository.                                 |
+| yum_key_url                 | Only change this if you're running your own repository.                                 |
+
+
 
 
 Note: If the repo URL is configured as an empty string, the recipe will not

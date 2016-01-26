@@ -18,7 +18,8 @@ describe 'cloudpassage' do
       context 'Halo is not already configured.' do
         before(:all) do
           @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
-                                               version: "#{version}")
+                                               version: "#{version}",
+                                               step_into: ['cloudpassage_agent'])
           @chef_run.converge(described_recipe)
         end
         it 'Sets up repo for Debian Linux.' do
@@ -48,7 +49,8 @@ describe 'cloudpassage' do
       context 'Halo is already configured.' do
         before(:all) do
           @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
-                                               version: "#{version}")
+                                               version: "#{version}",
+                                               step_into: ['cloudpassage_agent'])
           @chef_run.converge(described_recipe)
         end
         it 'Skips configuration if store.db exists.' do
@@ -77,7 +79,7 @@ describe 'cloudpassage' do
 
       context 'Halo repository links in attributes file are empty.' do
         before(:all) do
-          @chef_run = ChefSpec::SoloRunner.new
+          @chef_run = ChefSpec::SoloRunner.new(step_into: ['cloudpassage_agent'])
           @chef_run.node.default['platform'] = "#{platform}"
           @chef_run.node.default['version'] = "#{version}"
           @chef_run.node.set['cloudpassage']['apt_repo_url'] = ''
@@ -99,7 +101,8 @@ describe 'cloudpassage' do
       context 'Encrypted data bag is used for sensitive information.' do
         before(:all) do
           @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
-                                               version: "#{version}")
+                                               version: "#{version}",
+                                               step_into: ['cloudpassage_agent'])
           @chef_run.converge(described_recipe)
         end
         it 'Uses secrets from databag.' do
@@ -126,7 +129,8 @@ describe 'cloudpassage' do
       context 'Data bag is used for sensitive information.' do
         before(:all) do
           @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
-                                               version: "#{version}")
+                                               version: "#{version}",
+                                               step_into: ['cloudpassage_agent'])
           @chef_run.converge(described_recipe)
         end
         it 'Uses secrets from databag.' do

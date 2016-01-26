@@ -5,8 +5,6 @@ describe Chef::CloudPassage::ConfigHelper do
         File.expand_path(__FILE__)), '../test/fixtures/unit_config.yaml'))
   describe '#initialize' do
     before :each do
-      bag = {}
-      ebag = {}
       xmas = {
         'grid_url' => config['grid_url'], 'proxy_host' => config['proxy_host'], 'proxy_port' => config['proxy_port'],
         'read_only' => config['read_only'], 'server_tag' => config['server_tag'],
@@ -19,10 +17,8 @@ describe Chef::CloudPassage::ConfigHelper do
         'windows_installer_port' => config['windows_installer_port'],
         'windows_installer_path' => config['windows_installer_path'],
         'windows_installer_file_name' => config['windows_installer_file_name'] }
-      @xmas_helper = Chef::CloudPassage::ConfigHelper.new(base_config: xmas,
-                                                          databag_config: bag, encrypted_databag_config: ebag)
-      @bare_helper = Chef::CloudPassage::ConfigHelper.new(base_config: bare,
-                                                          databag_config: bag, encrypted_databag_config: ebag)
+      @xmas_helper = Chef::CloudPassage::ConfigHelper.new(xmas)
+      @bare_helper = Chef::CloudPassage::ConfigHelper.new(bare)
     end
 
     it 'Bare takes one param' do

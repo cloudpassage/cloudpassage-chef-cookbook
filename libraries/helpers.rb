@@ -8,44 +8,29 @@ class Chef
     # windows_configuration_variables and linux_configuration_variables,
     # respectively
     class ConfigHelper
-      def initialize(opt = {})
-        # Chef::Log.warn("Initialization Data: #{opt}")
-        final_params = initialize_params(opt)
-        @win_conf = WinConfig.new(final_params)
-        @lin_conf = LinConfig.new(final_params)
+      def initialize(opt)
+        initialize_params(opt)
+        @win_conf = WinConfig.new(opt)
+        @lin_conf = LinConfig.new(opt)
       end
 
-      def initialize_params(params = {})
-        final_config = blend_configs(params[:base_config],
-                                     params[:databag_config],
-                                     params[:encrypted_databag_config])
-        final_config.each do |key, val|
-          instance_variable_set("@#{key}", val)
-        end
-        final_config
-      end
-
-      def blend_configs(base, databag, edatabag)
-        final_config = {}
-        base.each { |key, val| final_config["#{key}"] = val }
-        databag.each { |key, val| final_config["#{key}"] = val unless databag.nil? }
-        edatabag.each { |key, val| final_config["#{key}"] = val unless edatabag.nil? }
-        final_config
+      def initialize_params(params)
+        @config = params
       end
 
       def windows_installation_path
         [
-          @windows_installer_protocol, '://',
-          @windows_installer_host, ':',
-          @windows_installer_port,
-          @windows_installer_path, @windows_installer_file_name
+          @config['windows_installer_protocol'], '://',
+          @config['windows_installer_host'], ':',
+          @config['windows_installer_port'],
+          @config['windows_installer_path'], @config['windows_installer_file_name']
         ].join('')
       end
 
       def windows_configuration
         [
           '/S ',
-          "/AGENT-KEY=#{@agent_key}", @win_conf.grid,
+          "/AGENT-KEY=#{@config['agent_key']}", @win_conf.grid,
           @win_conf.server_label,
           @win_conf.server_tag,
           @win_conf.read_only,
@@ -57,7 +42,7 @@ class Chef
 
       def linux_configuration
         [
-          "--agent-key=#{@agent_key}", @lin_conf.grid,
+          "--agent-key=#{@config['agent_key']}", @lin_conf.grid,
           @lin_conf.server_label,
           @lin_conf.server_tag,
           @lin_conf.read_only,
@@ -71,32 +56,33 @@ class Chef
     # This class contains functionality to build Windows-specific configuration
     # arguments
     class WinConfig
-      def initialize(opt = {})
+      def initialize(opt)
+        @config = {}
         initialize_params(opt)
       end
 
-      def initialize_params(params = {})
-        @grid_url = 'https://grid.cloudpassage.com/grid'
-        @proxy_host = ''
-        @proxy_port = ''
-        @proxy_user = ''
-        @proxy_password = ''
-        @read_only = false
-        @server_tag = ''
-        @server_label = ''
-        @dns = ''
-        params.each { |key, val| instance_variable_set("@#{key}", val) }
+      def initialize_params(params)
+        @config['grid_url'] = 'https://grid.cloudpassage.com/grid'
+        @config['proxy_host'] = ''
+        @config['proxy_port'] = ''
+        @config['proxy_user'] = ''
+        @config['proxy_password'] = ''
+        @config['read_only'] = false
+        @config['server_tag'] = ''
+        @config['server_label'] = ''
+        @config['dns'] = ''
+        @config.merge!(params)
       end
 
       def grid
-        " /grid=\"#{@grid_url}\""
+        " /grid=\"#{@config['grid_url']}\""
       end
 
       def dns
         # Build the DNS switch for the Windows configuration string
-        if @dns == false
+        if @config['dns'] == false
           dns_string = ' /DNS=false'
-        elsif @dns == true
+        elsif @config['dns'] == true
           dns_string = ' /DNS=true'
         end
         dns_string
@@ -104,9 +90,9 @@ class Chef
 
       def read_only
         # Build the read-only switch for the Windows configuration string
-        if @read_only == false
+        if @config['read_only'] == false
           read_only_string = ' /read-only=false'
-        elsif @read_only == true
+        elsif @config['read_only'] == true
           read_only_string = ' /read-only=true'
         end
         read_only_string
@@ -114,8 +100,8 @@ class Chef
 
       def server_label
         # Build the server label switch for the Windows configuration string
-        if @server_label != ''
-          server_label_string = " /SERVER-LABEL=\"#{@server_label}\""
+        if @config['server_label'] != ''
+          server_label_string = " /SERVER-LABEL=\"#{@config['server_label']}\""
         else
           server_label_string = ''
         end
@@ -124,8 +110,8 @@ class Chef
 
       def server_tag
         # Build the server tag switch for the Windows configuration string
-        if @server_tag != ''
-          server_tag_string = [' /TAG=', '"', @server_tag, '"'].join('')
+        if @config['server_tag'] != ''
+          server_tag_string = [' /TAG=', '"', @config['server_tag'], '"'].join('')
         else
           server_tag_string = ''
         end
@@ -133,8 +119,8 @@ class Chef
       end
 
       def proxy_host
-        if @proxy_host != '' && @proxy_port != ''
-          proxy_host_portion = " /proxy=#{@proxy_host}:#{@proxy_port}"
+        if @config['proxy_host'] != '' && @config['proxy_port'] != ''
+          proxy_host_portion = " /proxy=#{@config['proxy_host']}:#{@config['proxy_port']}"
         else
           proxy_host_portion = ''
         end
@@ -142,8 +128,8 @@ class Chef
       end
 
       def proxy_user
-        if @proxy_user != ''
-          proxy_user_portion = " /proxy-user=\"#{@proxy_user}\""
+        if @config['proxy_user'] != ''
+          proxy_user_portion = " /proxy-user=\"#{@config['proxy_user']}\""
         else
           proxy_user_portion = ''
         end
@@ -151,8 +137,8 @@ class Chef
       end
 
       def proxy_pass
-        if @proxy_password != '' && @proxy_user != ''
-          proxy_password_portion = " /proxy-password=\"#{@proxy_password}\""
+        if @config['proxy_password'] != '' && @config['proxy_user'] != ''
+          proxy_password_portion = " /proxy-password=\"#{@config['proxy_password']}\""
         else
           proxy_password_portion = ''
         end
@@ -163,32 +149,33 @@ class Chef
     # This class contains functionality to build Linux-specific configuration
     # arguments
     class LinConfig
-      def initialize(opt = {})
+      def initialize(opt)
+        @config = {}
         initialize_params(opt)
       end
 
-      def initialize_params(params = {})
-        @grid_url = 'https://grid.cloudpassage.com/grid'
-        @proxy_host = ''
-        @proxy_port = ''
-        @proxy_user = ''
-        @proxy_password = ''
-        @read_only = false
-        @server_tag = ''
-        @server_label = ''
-        @dns = ''
-        params.each { |key, val| instance_variable_set("@#{key}", val) }
+      def initialize_params(params)
+        @config['grid_url'] = 'https://grid.cloudpassage.com/grid'
+        @config['proxy_host'] = ''
+        @config['proxy_port'] = ''
+        @config['proxy_user'] = ''
+        @config['proxy_password'] = ''
+        @config['read_only'] = false
+        @config['server_tag'] = ''
+        @config['server_label'] = ''
+        @config['dns'] = ''
+        @config.merge!(params)
       end
 
       def grid
-        " --grid=\"#{@grid_url}\""
+        " --grid=\"#{@config['grid_url']}\""
       end
 
       def dns
         # Build the DNS switch for the Linux configuration string
-        if @dns == false
+        if @config['dns'] == false
           dns_string = ' --dns=false'
-        elsif @dns == true
+        elsif @config['dns'] == true
           dns_string = ' --dns=true'
         end
         dns_string
@@ -196,9 +183,9 @@ class Chef
 
       def read_only
         # Build the read-only switch for the Linux configuration string
-        if @read_only == false
+        if @config['read_only'] == false
           read_only_string = ' --read-only=false'
-        elsif @read_only == true
+        elsif @config['read_only'] == true
           read_only_string = ' --read-only=true'
         end
         read_only_string
@@ -206,8 +193,8 @@ class Chef
 
       def server_label
         # Build the server label switch for the Linux configuration string
-        if @server_label != ''
-          server_label_string = " --server-label=\"#{@server_label}\""
+        if @config['server_label'] != ''
+          server_label_string = " --server-label=\"#{@config['server_label']}\""
         else
           server_label_string = ''
         end
@@ -216,8 +203,8 @@ class Chef
 
       def server_tag
         # Build the server tag switch for the Windows configuration string
-        if @server_tag != ''
-          server_tag_string = [' --tag=', '"', @server_tag, '"'].join('')
+        if @config['server_tag'] != ''
+          server_tag_string = [' --tag=', '"', @config['server_tag'], '"'].join('')
         else
           server_tag_string = ''
         end
@@ -225,8 +212,8 @@ class Chef
       end
 
       def proxy_host
-        if @proxy_host != '' && @proxy_port != ''
-          proxy_host_portion = " --proxy=#{@proxy_host}:#{@proxy_port}"
+        if @config['proxy_host'] != '' && @config['proxy_port'] != ''
+          proxy_host_portion = " --proxy=#{@config['proxy_host']}:#{@config['proxy_port']}"
         else
           proxy_host_portion = ''
         end
@@ -234,8 +221,8 @@ class Chef
       end
 
       def proxy_user
-        if @proxy_user != ''
-          proxy_user_portion = " --proxy-user=\"#{@proxy_user}\""
+        if @config['proxy_user'] != ''
+          proxy_user_portion = " --proxy-user=\"#{@config['proxy_user']}\""
         else
           proxy_user_portion = ''
         end
@@ -243,8 +230,8 @@ class Chef
       end
 
       def proxy_pass
-        if @proxy_password != '' && @proxy_user != ''
-          proxy_password_portion = " --proxy-password=\"#{@proxy_password}\""
+        if @config['proxy_password'] != '' && @config['proxy_user'] != ''
+          proxy_password_portion = " --proxy-password=\"#{@config['proxy_password']}\""
         else
           proxy_password_portion = ''
         end

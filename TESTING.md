@@ -6,11 +6,11 @@
 
  - *rake style*  Run foodcritic and rubocop
 
- - *rake integration* Run test-kitchen tests (defaults to vagrant)
+ - *rake integration* Run test-kitchen tests (vagrant and EC2)
 
-The integration tests will, by default, be defined by the .kitchen.yml file.  
-This file only references linux hosts.  If you would like to test against
-Windows hosts, set the KITCHEN_YAML environment variable to .kitchen.ec2.yml.
+ - *rake integration:vagrant* Run only vagrant integration tests
+
+ - *rake integration:ec2* Run only EC2 integration tests
 
 In order to run any kitchen tests successfully, you'll need to set the
 HALO_AGENT_KEY environment variable.

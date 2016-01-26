@@ -38,5 +38,6 @@ task spec: ['spec:spec']
 
 desc 'Runs all integration tests using kitchen-vagrant and kitchen-ec2'
 task integration: ['integration:vagrant', 'integration:ec2']
+task travis: [:style, :spec]
 
 task default: [:style, :spec, :integration]

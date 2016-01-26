@@ -1,7 +1,10 @@
 # cloudpassage Cookbook
 
-Version: 1.0
+Version: 2.0
+
 Author: CloudPassage
+
+Feedback: toolbox@cloudpassage.com
 
 ## Scope
 
@@ -95,7 +98,7 @@ cloudpassage_halo resource:
 | proxy_port                  | Defines the port for the proxy                                                          |
 | proxy_user                  | Define a username for proxy use                                                         |
 | proxy_password              | Define a password for proxy use                                                         |
-| read_only                   | Run the agent in audit mode                                                             |
+| read_only                   | Set to ```true``` to run the agent in audit mode                                        |
 | server_tag                  | This determines group placement on agent activation                                     |
 | server_label                | This is a user-defined string that supersedes the hostname when rendered in the portal. |
 | dns                         | Set this to ```false``` to disable DNS resolution by the agent.                         |

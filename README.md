@@ -26,6 +26,7 @@ This cookbook installs and upgrades CloudPassage Halo on Windows, Debian-based
 
 ### Tested Chef Versions
 
+ - chef-client 12.5
  - chef-client 12.6
 
 ### Cookbooks

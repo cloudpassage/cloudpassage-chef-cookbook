@@ -2,83 +2,49 @@
 # Cookbook Name:: cloudpassage
 # Recipe:: default
 #
-# Copyright 2015, CloudPassage
-# Before we get this party started, set the environment variable for proxy...
+# Copyright 2016, CloudPassage
 
-# First we build the proxy string
-if node[:cloudpassage][:proxy_url] != "" then
-    ENV['http_proxy'] = "#{node[:cloudpassage][:proxy_url]}"
-    if (node[:cloudpassage][:proxy_user] != "") && (node[:cloudpassage][:proxy_pass] != "") then
-        proxy_string_lin = "--proxy=\"#{node[:cloudpassage][:proxy_url]}\" --proxy-user=\"#{node[:cloudpassage][:proxy_user]}\" --proxy-password=\"#{node[:cloudpassage][:proxy_pass]}\""
-        proxy_string_win = "/proxy=\"#{node[:cloudpassage][:proxy_url]}\" /proxy-user=\"#{node[:cloudpassage][:proxy_user]}\" /proxy-password=\"#{node[:cloudpassage][:proxy_pass]}\""
-    else
-        proxy_string_lin = "--proxy=\"#{node[:cloudpassage][:proxy_url]}\""
-        proxy_string_win = "/proxy=\"#{node[:cloudpassage][:proxy_url]}\""
-    end
-else
-    proxy_string_lin = ""
-    proxy_string_win = ""
-end
-# Next we determine the server tag string
-if node[:cloudpassage][:proxy_url] != "" then
-    tag_string_lin = "--tag=#{node[:cloudpassage][:tag]}"
-    tag_string_win = "/tag=#{node[:cloudpassage][:tag]}"
-else
-    tag_string_lin = ""
-    tag_string_win = ""
-end
-# Set up repositories for Linux
-case node[:platform_family]
-    when "debian"
-        apt_repository 'cloudpassage' do
-            uri node[:cloudpassage][:deb_repo_url]
-            key node[:cloudpassage][:deb_key_location] 
-        end
-    when "rhel"
-        yum_repository 'cloudpassage' do
-            description  "CloudPassage Halo Repository"
-            baseurl  "#{node[:cloudpassage][:rpm_repo_url]}"
-            gpgkey  "#{node[:cloudpassage][:rpm_key_location]}"
-            action :create
-        end
-end
-# Install and register the Halo agent
-case node[:platform_family]
-    when "debian", "rhel"
-        p_serv_name = "cphalod"
-        startup_opts_lin = "--agent-key=#{node[:cloudpassage]['agent_key']} #{tag_string_lin} --grid=\"#{node[:cloudpassage][:grid]}\" #{proxy_string_lin}" 
-        package 'cphalo' do
-            action :install
-        end
-        # We'll start it up and shut it down using the init script.
-        # We will leave it off because later we'll start and enable it 
-        # using the platform's service manager.
+# Grab config from attributes file
+config = node['cloudpassage']
 
-        execute "cphalo-config" do
-          command "sudo /opt/cloudpassage/bin/configure --agent-key=#{node[:cloudpassage]['agent_key']} --tag=#{node[:cloudpassage]['tag']} --server-label=#{node[:cloudpassage]['label']} --read-only=#{node[:cloudpassage]['readonly']} --dns=#{node[:cloudpassage]['usedns']}"
-          action :run
-        end
-
-        execute "cphalo-start" do
-            command "sudo /etc/init.d/cphalod start"
-            action :run
-            not_if "sudo ps x | grep cphalo | grep -v grep"
-        end
-        execute "cphalo-stop" do
-            command "sudo /etc/init.d/cphalod stop"
-            only_if "sudo ps x | grep cphalo | grep -v grep"
-        end
-    when "windows"
-        p_serv_name = "CloudPassage Halo Agent"
-        startup_opts_win = "/agent-key=#{node[:cloudpassage]['agent_key']} #{tag_string_win} /grid=\"#{node[:cloudpassage][:grid]}\" #{proxy_string_win}" 
-        windows_package 'CloudPassage Halo' do
-            source node[:cloudpassage][:win_installer_location]
-            options "/S #{startup_opts_win} /NOSTART"
-            installer_type :custom
-            action :install
-        end
+# Attempt to load databag.  If it fails, set it to an empty hash.
+begin
+  dbconfig = data_bag('cloudpassage')
+rescue
+  dbconfig = {}
 end
-# Now we start the agent using the platform's service manager!
-service "#{p_serv_name}" do
-    action [ "enable", "start"]
+
+# Attempt to load encrypted databag.  If it fails, set it to an empty hash.
+begin
+  edbconfig = Chef::EncryptedDataBagItem.load('credentials', 'halo')
+rescue
+  edbconfig = {}
+end
+
+# Merge configs- final authority is the encrypted data bag
+final_config = config.merge(dbconfig).merge(edbconfig)
+
+cloudpassage_agent 'halo' do
+  agent_key final_config['agent_key']
+  grid_url final_config['grid_url']
+  proxy_host final_config['proxy_host']
+  proxy_port final_config['proxy_port']
+  proxy_user final_config['proxy_user']
+  proxy_password final_config['proxy_password']
+  read_only final_config['read_only']
+  server_tag final_config['server_tag']
+  server_label final_config['server_label']
+  dns final_config['dns']
+  windows_installer_protocol final_config['windows_installer_protocol']
+  windows_installer_port final_config['windows_installer_port']
+  windows_installer_host final_config['windows_installer_host']
+  windows_installer_path final_config['windows_installer_path']
+  windows_installer_file_name final_config['windows_installer_file_name']
+  apt_repo_url final_config['apt_repo_url']
+  apt_repo_distribution final_config['apt_repo_distribution']
+  apt_repo_components final_config['apt_repo_components']
+  yum_repo_url final_config['yum_repo_url']
+  apt_key_url final_config['apt_key_url']
+  yum_key_url final_config['yum_key_url']
+  action :install
 end

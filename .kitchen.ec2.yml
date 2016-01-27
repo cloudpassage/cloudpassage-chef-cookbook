@@ -1,0 +1,62 @@
+---
+# Requires environment variables for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+driver:
+  name: ec2
+  aws_ssh_key_id: <%= ENV['KITCHEN_AWS_SSH_KEY_ID'] %>
+  region: <%= ENV['KITCHEN_AWS_REGION'] %>
+  availability_zone: <%= ENV['KITCHEN_AWS_REGION_ZONE'] %>
+  require_chef_omnibus: true
+  subnet_id: <%= ENV['KITCHEN_AWS_SUBNET_ID'] %>
+  instance_type: <%= ENV['KITCHEN_EC2_INSTANCE_TYPE'] %>
+  associate_public_ip: <%= ENV['KITCHEN_EC2_PUBLIC_IP'] %>
+  # interface: dns
+  interface: <%= ENV['KITCHEN_EC2_INTERFACE'] %>
+
+transport:
+  ssh_key: <%= ENV['KITCHEN_AWS_KEY_FILE'] %>
+  connection_timeout: 10
+  connection_retries: 5
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-12.04
+    driver:
+      image_id: <%= ENV['UBUNTU_12_AMI_ID'] %>
+      # image_id: ami-01470531
+    transport:
+      username: <%= ENV['UBUNTU_12_USER'] %>
+      # username: ubuntu
+  - name: ubuntu-14.04
+    driver:
+      image_id: <%= ENV['UBUNTU_14_AMI_ID'] %>
+      # image_id: ami-5189a661
+    transport:
+      username: <%= ENV['UBUNTU_14_USER'] %>
+      # username: ubuntu
+  - name: rhel-7.2
+    driver:
+      image_id: <%= ENV['RHEL_72_AMI_ID'] %>
+      # image_id: ami-775e4f16
+    transport:
+      username: <%= ENV['RHEL_72_USER'] %>
+      # username: ec2-user
+  - name: windows-2012r2
+    driver:
+      image_id: <%= ENV['WIN_2012_R2_AMI_ID'] %>
+      # image_id: ami-83a5bce2
+
+  # You'll need to build your own AMI with Powershell v4 installed.
+  # Otherwise, comment out windows-2008r2 below.
+  # - name: windows-2008r2
+  #   driver:
+  #     image_id: <%= ENV['AWS_AMI_2008R2'] %>
+
+suites:
+  - name: default
+    run_list:
+      - recipe[cloudpassage::default]
+    attributes:
+      cloudpassage:
+        agent_key: <%= ENV['HALO_AGENT_KEY'] %>

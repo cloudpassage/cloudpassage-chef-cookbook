@@ -1,6 +1,6 @@
 # cloudpassage Cookbook
 
-Version: 2.0
+Version: 2.1
 
 Author: CloudPassage
 
@@ -26,7 +26,8 @@ This cookbook installs and upgrades CloudPassage Halo on Windows, Debian-based
 
 ### Tested Chef Versions
 
- - chef-client 12.6
+ - chef-client 12.5.1 (using Chef DK 0.9.0)
+ - chef-client 12.6 (using Chef DK 0.10.0)
 
 ### Cookbooks
 

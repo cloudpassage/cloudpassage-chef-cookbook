@@ -22,3 +22,7 @@
 ## 2.0.0:
 
 * Re-work of entire cookbook.  Provides cloudpassage_agent resource for installing agent.
+
+## 2.1.0:
+
+* Added compat_resource to enable chef-client 12.5.1 compatibility.

@@ -34,3 +34,5 @@
 * Documentation improvements
 
 * Force failure on absence of agent key
+
+* Added rake task ec2 for style, spec, and ec2 checks (thanks @rgindes)

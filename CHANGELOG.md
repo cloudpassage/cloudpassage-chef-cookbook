@@ -26,3 +26,11 @@
 ## 2.1.0:
 
 * Added compat_resource to enable chef-client 12.5.1 compatibility.
+
+## 2.2.0:
+
+* Added linux_agent_version property to force specific version of Halo agent
+
+* Documentation improvements
+
+* Force failure on absence of agent key

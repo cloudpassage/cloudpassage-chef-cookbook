@@ -1,14 +1,15 @@
 actions :install
 default_action :install
-property :agent_key, String, default: 'ABC123'
+property :agent_key, String, default: nil
 property :grid_url, String, default: 'https://grid.cloudpassage.com/grid'
-property :proxy_host, String, default: ''
-property :proxy_port, String, default: ''
-property :proxy_user, String, default: ''
-property :proxy_password, String, default: ''
+property :linux_agent_version, String, default: nil
+property :proxy_host, String, default: nil
+property :proxy_port, String, default: nil
+property :proxy_user, String, default: nil
+property :proxy_password, String, default: nil
 property :read_only, kind_of: [TrueClass, FalseClass], default: false
-property :server_tag, String, default: ''
-property :server_label, String, default: ''
+property :server_tag, String, default: nil
+property :server_label, String, default: nil
 property :dns, kind_of: [TrueClass, FalseClass], default: true
 property :windows_installer_protocol, String, default: 'https'
 property :windows_installer_port, String, default: '443'
@@ -23,6 +24,7 @@ property :apt_key_url, String, default: 'http://packages.cloudpassage.com/cloudp
 property :yum_key_url, String, default: 'http://packages.cloudpassage.com/cloudpassage.packages.key'
 
 action :install do
+  fail 'agent_key is not set, agent will not register without one!' if agent_key.nil?
   conf = { 'agent_key' => agent_key, 'grid_url' => grid_url, 'proxy_host' => proxy_host,
            'proxy_port' => proxy_port,
            'proxy_user' => proxy_user, 'proxy_password' => proxy_password, 'read_only' => read_only,
@@ -61,6 +63,7 @@ action :install do
   case node['platform_family']
   when 'debian', 'rhel'
     package 'cphalo' do
+      version linux_agent_version unless linux_agent_version.nil?
       action :upgrade
     end
     execute 'cphalo-config' do

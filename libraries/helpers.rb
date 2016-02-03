@@ -63,14 +63,14 @@ class Chef
 
       def initialize_params(params)
         @config['grid_url'] = 'https://grid.cloudpassage.com/grid'
-        @config['proxy_host'] = ''
-        @config['proxy_port'] = ''
-        @config['proxy_user'] = ''
-        @config['proxy_password'] = ''
+        @config['proxy_host'] = nil
+        @config['proxy_port'] = nil
+        @config['proxy_user'] = nil
+        @config['proxy_password'] = nil
         @config['read_only'] = false
-        @config['server_tag'] = ''
-        @config['server_label'] = ''
-        @config['dns'] = ''
+        @config['server_tag'] = nil
+        @config['server_label'] = nil
+        @config['dns'] = nil
         @config.merge!(params)
       end
 
@@ -100,47 +100,47 @@ class Chef
 
       def server_label
         # Build the server label switch for the Windows configuration string
-        if @config['server_label'] != ''
-          server_label_string = " /SERVER-LABEL=\"#{@config['server_label']}\""
-        else
+        if @config['server_label'].nil?
           server_label_string = ''
+        else
+          server_label_string = " /SERVER-LABEL=\"#{@config['server_label']}\""
         end
         server_label_string
       end
 
       def server_tag
         # Build the server tag switch for the Windows configuration string
-        if @config['server_tag'] != ''
-          server_tag_string = [' /TAG=', '"', @config['server_tag'], '"'].join('')
-        else
+        if @config['server_tag'].nil?
           server_tag_string = ''
+        else
+          server_tag_string = [' /TAG=', '"', @config['server_tag'], '"'].join('')
         end
         server_tag_string
       end
 
       def proxy_host
-        if @config['proxy_host'] != '' && @config['proxy_port'] != ''
-          proxy_host_portion = " /proxy=#{@config['proxy_host']}:#{@config['proxy_port']}"
-        else
+        if @config['proxy_host'].nil? && @config['proxy_port'].nil?
           proxy_host_portion = ''
+        else
+          proxy_host_portion = " /proxy=#{@config['proxy_host']}:#{@config['proxy_port']}"
         end
         proxy_host_portion
       end
 
       def proxy_user
-        if @config['proxy_user'] != ''
-          proxy_user_portion = " /proxy-user=\"#{@config['proxy_user']}\""
-        else
+        if @config['proxy_user'].nil?
           proxy_user_portion = ''
+        else
+          proxy_user_portion = " /proxy-user=\"#{@config['proxy_user']}\""
         end
         proxy_user_portion
       end
 
       def proxy_pass
-        if @config['proxy_password'] != '' && @config['proxy_user'] != ''
-          proxy_password_portion = " /proxy-password=\"#{@config['proxy_password']}\""
-        else
+        if @config['proxy_password'].nil? && @config['proxy_user'].nil?
           proxy_password_portion = ''
+        else
+          proxy_password_portion = " /proxy-password=\"#{@config['proxy_password']}\""
         end
         proxy_password_portion
       end
@@ -156,14 +156,14 @@ class Chef
 
       def initialize_params(params)
         @config['grid_url'] = 'https://grid.cloudpassage.com/grid'
-        @config['proxy_host'] = ''
-        @config['proxy_port'] = ''
-        @config['proxy_user'] = ''
-        @config['proxy_password'] = ''
+        @config['proxy_host'] = nil
+        @config['proxy_port'] = nil
+        @config['proxy_user'] = nil
+        @config['proxy_password'] = nil
         @config['read_only'] = false
-        @config['server_tag'] = ''
-        @config['server_label'] = ''
-        @config['dns'] = ''
+        @config['server_tag'] = nil
+        @config['server_label'] = nil
+        @config['dns'] = nil
         @config.merge!(params)
       end
 
@@ -193,47 +193,47 @@ class Chef
 
       def server_label
         # Build the server label switch for the Linux configuration string
-        if @config['server_label'] != ''
-          server_label_string = " --server-label=\"#{@config['server_label']}\""
-        else
+        if @config['server_label'].nil?
           server_label_string = ''
+        else
+          server_label_string = " --server-label=\"#{@config['server_label']}\""
         end
         server_label_string
       end
 
       def server_tag
         # Build the server tag switch for the Windows configuration string
-        if @config['server_tag'] != ''
-          server_tag_string = [' --tag=', '"', @config['server_tag'], '"'].join('')
-        else
+        if @config['server_tag'].nil?
           server_tag_string = ''
+        else
+          server_tag_string = [' --tag=', '"', @config['server_tag'], '"'].join('')
         end
         server_tag_string
       end
 
       def proxy_host
-        if @config['proxy_host'] != '' && @config['proxy_port'] != ''
-          proxy_host_portion = " --proxy=#{@config['proxy_host']}:#{@config['proxy_port']}"
-        else
+        if @config['proxy_host'].nil? && @config['proxy_port'].nil?
           proxy_host_portion = ''
+        else
+          proxy_host_portion = " --proxy=#{@config['proxy_host']}:#{@config['proxy_port']}"
         end
         proxy_host_portion
       end
 
       def proxy_user
-        if @config['proxy_user'] != ''
-          proxy_user_portion = " --proxy-user=\"#{@config['proxy_user']}\""
-        else
+        if @config['proxy_user'].nil?
           proxy_user_portion = ''
+        else
+          proxy_user_portion = " --proxy-user=\"#{@config['proxy_user']}\""
         end
         proxy_user_portion
       end
 
       def proxy_pass
-        if @config['proxy_password'] != '' && @config['proxy_user'] != ''
-          proxy_password_portion = " --proxy-password=\"#{@config['proxy_password']}\""
-        else
+        if @config['proxy_password'].nil? && @config['proxy_user'].nil?
           proxy_password_portion = ''
+        else
+          proxy_password_portion = " --proxy-password=\"#{@config['proxy_password']}\""
         end
         proxy_password_portion
       end

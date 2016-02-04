@@ -14,6 +14,10 @@ Feedback: toolbox@cloudpassage.com
 This cookbook installs and upgrades CloudPassage Halo on Windows, Debian-based
 (Debian, Ubuntu) and RHEL-based (RHEL, CentOS, Oracle) operating systems.
 
+This cookbook supports installation by resource, which is the preferred method.  
+Optionally, you can also use the default recipe, but you'll need to provide configuration
+information via attributes or data bag.
+
 ## Requirements and dependencies
 ### Tested and Supported Platforms
 
@@ -40,6 +44,7 @@ The following attributes are configurable via the attributes/default.rb file:
 
     default['cloudpassage']['agent_key'] # Key used for agent registration
     default['cloudpassage']['grid_url'] # Normally https://grid.cloudpassage.com/grid
+    default['cloudpassage']['linux_agent_version'] # Force a specific version of the Halo agent.
     default['cloudpassage']['proxy_host']
     default['cloudpassage']['proxy_port']
     default['cloudpassage']['proxy_user']
@@ -85,6 +90,9 @@ as simply as:
       action :install
     end
 
+Don't forget to add ```depends 'cloudpassage'``` to your metadata.rb file if
+you're including the resource in another cookbook.
+
 As with the recipe, you can accept almost all the defaults and rock and roll.  
 You don't even have to define the ```server_tag```, but you'll spend a lot of
 time manually organizing your hosts in the CloudPassage Halo portal if you
@@ -98,6 +106,7 @@ cloudpassage_halo resource:
 |-----------------------------|-----------------------------------------------------------------------------------------|
 | agent_key                   | You MUST define this.  The default value will not register.                             |
 | grid_url                    | Only override this if you're running on your own grid.                                  |
+| linux_agent_version         | This forces a specific version of the Linux agent.                                      |
 | proxy_host                  | Tells the agent to use a proxy                                                          |
 | proxy_port                  | Defines the port for the proxy                                                          |
 | proxy_user                  | Define a username for proxy use                                                         |

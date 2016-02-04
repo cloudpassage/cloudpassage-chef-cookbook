@@ -12,6 +12,8 @@
 
  - *rake integration:ec2* Run only EC2 integration tests
 
+ - *rake ec2* Run style, spec, and ec2 tests
+
 In order to run any kitchen tests successfully, you'll need to set the
 HALO_AGENT_KEY environment variable.
 

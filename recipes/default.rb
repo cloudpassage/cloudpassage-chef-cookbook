@@ -26,6 +26,7 @@ final_config = config.merge(dbconfig).merge(edbconfig)
 
 cloudpassage_agent 'halo' do
   agent_key final_config['agent_key']
+  linux_agent_version final_config['linux_agent_version']
   grid_url final_config['grid_url']
   proxy_host final_config['proxy_host']
   proxy_port final_config['proxy_port']

@@ -36,3 +36,7 @@
 * Force failure on absence of agent key
 
 * Added rake task ec2 for style, spec, and ec2 checks (thanks @rgindes)
+
+## 2.2.1:
+
+* Corrected deprecated code ahead of Chef 13

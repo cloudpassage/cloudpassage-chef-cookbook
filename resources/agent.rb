@@ -1,27 +1,27 @@
 actions :install
 default_action :install
-property :agent_key, String, default: nil
+property :agent_key, [String, nil], default: nil
 property :grid_url, String, default: 'https://grid.cloudpassage.com/grid'
-property :linux_agent_version, String, default: nil
-property :proxy_host, String, default: nil
-property :proxy_port, String, default: nil
-property :proxy_user, String, default: nil
-property :proxy_password, String, default: nil
+property :linux_agent_version, [String, nil], default: nil
+property :proxy_host, [String, nil], default: nil
+property :proxy_port, [String, nil], default: nil
+property :proxy_user, [String, nil], default: nil
+property :proxy_password, [String, nil], default: nil
 property :read_only, kind_of: [TrueClass, FalseClass], default: false
-property :server_tag, String, default: nil
-property :server_label, String, default: nil
+property :server_tag, [String, nil], default: nil
+property :server_label, [String, nil], default: nil
 property :dns, kind_of: [TrueClass, FalseClass], default: true
 property :windows_installer_protocol, String, default: 'https'
 property :windows_installer_port, String, default: '443'
 property :windows_installer_host, String, default: 'packages.cloudpassage.com'
 property :windows_installer_path, String, default: '/windows/'
 property :windows_installer_file_name, String, default: 'cphalo-3.6.6-win64.exe'
-property :apt_repo_url, String, default: 'http://packages.cloudpassage.com/debian'
-property :apt_repo_distribution, String, default: 'debian'
-property :apt_repo_components, Array, default: ['main']
-property :yum_repo_url, String, default: 'http://packages.cloudpassage.com/redhat/$basearch'
-property :apt_key_url, String, default: 'http://packages.cloudpassage.com/cloudpassage.packages.key'
-property :yum_key_url, String, default: 'http://packages.cloudpassage.com/cloudpassage.packages.key'
+property :apt_repo_url, [String, nil], default: 'http://packages.cloudpassage.com/debian'
+property :apt_repo_distribution, [String, nil], default: 'debian'
+property :apt_repo_components, [String, Array, nil], default: ['main']
+property :yum_repo_url, [String, nil], default: 'http://packages.cloudpassage.com/redhat/$basearch'
+property :apt_key_url, [String, nil], default: 'http://packages.cloudpassage.com/cloudpassage.packages.key'
+property :yum_key_url, [String, nil], default: 'http://packages.cloudpassage.com/cloudpassage.packages.key'
 
 action :install do
   fail 'agent_key is not set, agent will not register without one!' if agent_key.nil?

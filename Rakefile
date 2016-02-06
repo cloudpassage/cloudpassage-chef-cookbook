@@ -1,5 +1,10 @@
+gem 'rspec', '~>3.4.0'
+gem 'rubocop', '~>0.34.2'
+gem 'foodcritic', '~>5.0.0'
 require 'rake'
 require 'rspec'
+require 'rubocop'
+require 'foodcritic'
 
 namespace :style do
   require 'rubocop/rake_task'

@@ -40,3 +40,7 @@
 ## 2.2.1:
 
 * Corrected deprecated code ahead of Chef 13
+
+## 2.2.2:
+
+* Pinned deps in Rakefile

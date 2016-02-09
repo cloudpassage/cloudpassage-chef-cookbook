@@ -44,3 +44,7 @@
 ## 2.2.2:
 
 * Pinned deps in Rakefile
+
+## 2.2.3:
+
+* Pinned test-kitchen dependency

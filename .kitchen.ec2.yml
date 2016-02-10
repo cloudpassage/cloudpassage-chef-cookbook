@@ -9,7 +9,7 @@ driver:
   subnet_id: <%= ENV['KITCHEN_AWS_SUBNET_ID'] %>
   instance_type: <%= ENV['KITCHEN_EC2_INSTANCE_TYPE'] %>
   associate_public_ip: <%= ENV['KITCHEN_EC2_PUBLIC_IP'] %>
-  # interface: dns
+  security_groups: <%= ENV['KITCHEN_EC2_SECURITY_GROUPS'] %>
   interface: <%= ENV['KITCHEN_EC2_INTERFACE'] %>
 
 transport:

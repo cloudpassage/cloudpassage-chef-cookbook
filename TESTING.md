@@ -29,6 +29,7 @@ additional environment variables set:
     KITCHEN_EC2_PUBLIC_IP     # Assign public IP to EC2 instances (true/false)
     KITCHEN_EC2_INTERFACE     # Which interface to connect to:
                               # (dns|public|private)
+    KITCHEN_EC2_SECURITY_GROUPS # (Ruby-ish) list of AWS security groups
     KITCHEN_AWS_SUBNET_ID     # The subnet in which to create your test hosts
     KITCHEN_AWS_KEY_FILE      # This is the path to your AWS SSH key file
     UBUNTU_12_USER            # Username for Ubuntu 12

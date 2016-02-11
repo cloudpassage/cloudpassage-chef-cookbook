@@ -48,3 +48,7 @@
 ## 2.2.3:
 
 * Pinned test-kitchen dependency
+
+## 2.3.0:
+
+* Added security group identifier to kitchen-ec2

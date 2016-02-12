@@ -52,3 +52,7 @@
 ## 2.3.0:
 
 * Added security group identifier to kitchen-ec2
+
+## 2.3.1:
+
+* Corrected variable name for security_group_ids

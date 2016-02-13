@@ -56,3 +56,7 @@
 ## 2.3.1:
 
 * Corrected variable name for security_group_ids
+
+## 2.4.0:
+
+* Allow use of user_data variable in ec2 testing

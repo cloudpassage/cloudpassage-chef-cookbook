@@ -25,6 +25,7 @@ platforms:
     driver:
       image_id: <%= ENV['UBUNTU_12_AMI_ID'] %>
       # image_id: ami-01470531
+      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
       username: <%= ENV['UBUNTU_12_USER'] %>
       # username: ubuntu
@@ -32,6 +33,7 @@ platforms:
     driver:
       image_id: <%= ENV['UBUNTU_14_AMI_ID'] %>
       # image_id: ami-5189a661
+      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
       username: <%= ENV['UBUNTU_14_USER'] %>
       # username: ubuntu
@@ -39,6 +41,7 @@ platforms:
     driver:
       image_id: <%= ENV['RHEL_72_AMI_ID'] %>
       # image_id: ami-775e4f16
+      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
       username: <%= ENV['RHEL_72_USER'] %>
       # username: ec2-user

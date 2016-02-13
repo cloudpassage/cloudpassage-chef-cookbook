@@ -20,3 +20,5 @@ bin/*
 .kitchen.local.yml
 
 doc/
+
+env_var.local

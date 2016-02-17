@@ -4,6 +4,8 @@ Version: 2.4.2
 
 Author: CloudPassage
 
+[www.cloudpassage.com](https://www.cloudpassage.com)
+
 Master branch: [![Build Status](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook.svg?branch=master)](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook)
 
 Develop branch: [![Build Status (develop branch)](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook.svg?branch=develop)](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook)

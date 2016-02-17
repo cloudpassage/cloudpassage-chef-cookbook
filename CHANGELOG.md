@@ -64,3 +64,7 @@
 ## 2.4.1:
 
 * Pinning more vars in Gemfile
+
+## 2.4.2:
+
+* Corrected versions in metadata.rb

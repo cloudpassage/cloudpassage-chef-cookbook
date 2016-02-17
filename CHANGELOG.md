@@ -60,3 +60,7 @@
 ## 2.4.0:
 
 * Allow use of user_data variable in ec2 testing
+
+## 2.4.1:
+
+* Pinning more vars in Gemfile

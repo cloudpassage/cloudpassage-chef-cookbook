@@ -1,6 +1,6 @@
-# cloudpassage Cookbook
-
 ![CloudPassage Logo](https://www.cloudpassage.com/wp-content/themes/cloudpassage-2015/images/logo.svg)
+
+# cloudpassage Cookbook
 
 Version: 2.5.0
 

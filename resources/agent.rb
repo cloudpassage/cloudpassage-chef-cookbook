@@ -1,15 +1,15 @@
 actions :install
 default_action :install
-property :agent_key, [String, nil], default: nil
+property :agent_key, [String, nil]
 property :grid_url, String, default: 'https://grid.cloudpassage.com/grid'
-property :linux_agent_version, [String, nil], default: nil
-property :proxy_host, [String, nil], default: nil
-property :proxy_port, [String, nil], default: nil
-property :proxy_user, [String, nil], default: nil
-property :proxy_password, [String, nil], default: nil
+property :linux_agent_version, [String, nil]
+property :proxy_host, [String, nil]
+property :proxy_port, [String, nil]
+property :proxy_user, [String, nil]
+property :proxy_password, [String, nil]
 property :read_only, kind_of: [TrueClass, FalseClass], default: false
-property :server_tag, [String, nil], default: nil
-property :server_label, [String, nil], default: nil
+property :server_tag, [String, nil]
+property :server_label, [String, nil]
 property :dns, kind_of: [TrueClass, FalseClass], default: true
 property :windows_installer_protocol, String, default: 'https'
 property :windows_installer_port, String, default: '443'
@@ -77,7 +77,7 @@ action :install do
     service 'CloudPassage Halo Agent for Linux' do
       service_name 'cphalod'
       # Force systemd for RHEL 7+.
-      if node['platform_family'] == 'rhel' && node['platform_version'].to_f >= 7
+      if (%w(redhat centos).include? node['platform']) && node['platform_version'].to_f >= 7
         provider Chef::Provider::Service::Systemd
       end
       supports [:start, :stop, :restart]

@@ -68,3 +68,13 @@
 ## 2.4.2:
 
 * Corrected versions in metadata.rb
+
+## 2.5.0:
+
+* Support Amazon Linux 2015.09 (improve override for svc manager), include in kitchen-ec2 config. (203)
+
+* Increased concurrency (207)
+
+* Added linux agent version to kitchen_ec2 config (208)
+
+* Override retryable_tries in kitchen-ec2 config to accommodate occasionally slow Windows provisioning

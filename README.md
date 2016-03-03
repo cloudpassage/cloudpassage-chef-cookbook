@@ -1,6 +1,8 @@
 # cloudpassage Cookbook
 
-Version: 2.4.2
+![CloudPassage Logo](https://www.cloudpassage.com/wp-content/themes/cloudpassage-2015/images/logo.svg)
+
+Version: 2.5.0
 
 Author: CloudPassage
 
@@ -27,6 +29,7 @@ information via attributes or data bag.
  - CentOS 6.7
  - CentOS 7.1
  - RHEL 7.2
+ - Amazon Linux 2015.09
  - Windows Server 2012R2
 
 ### Tested Chef Versions

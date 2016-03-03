@@ -15,7 +15,9 @@
  - *rake cloud* Run style, spec, and EC2 integration tests
 
 In order to run any kitchen tests successfully, you'll need to set the
-HALO_AGENT_KEY environment variable.
+HALO_AGENT_KEY environment variable.  Optionally, you may set the HALO_AGENT_VERSION
+environment variable to pin the test to a specific agent version.  Otherwise, the newest
+linux agent gets installed.
 
 In order to run the ec2 tests successfully, you'll need to have the following
 additional environment variables set:
@@ -36,9 +38,11 @@ additional environment variables set:
     UBUNTU_12_USER            # Username for Ubuntu 12
     UBUNTU_14_USER            # Username for Ubuntu 14
     RHEL_72_USER              # Username for RHEL 7.2
+    AMZN_LIN_2015_09_USER     # Username for Amazon Linux 2015.09
     UBUNTU_12_AMI_ID          # AMI ID for Ubuntu 12
     UBUNTU_14_AMI_ID          # AMI ID for Ubuntu 14
     RHEL_72_AMI_ID            # AMI ID for RHEL 7.2
+    AMZN_LIN_2015_09_AMI_ID   # AMI ID for Amazon Linux 2015.09
     WIN_2012_R2_AMI_ID        # AMI ID for Windows Server 2012 R2
     WIN_2008_R2_AMI_ID        # You'll have to custom-build an AMI for 2008R2 with
                               # Powershell v4.0 loaded.  Otherwise, comment that

@@ -18,3 +18,4 @@ suites:
     attributes:
       cloudpassage:
         agent_key: <%= ENV['HALO_AGENT_KEY'] %>
+        linux_agent_version: <%= ENV['HALO_AGENT_VERSION'] %

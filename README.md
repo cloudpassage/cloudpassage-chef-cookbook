@@ -138,3 +138,8 @@ cloudpassage_halo resource:
 
 Note: If the repo URL is configured as an empty string, the recipe will not
 attempt to add the appropriate CloudPassage repository on the node.
+
+<!---
+#CPTAGS:community-supported automation deployment
+#TBICON:images/ruby_icon.png
+-->

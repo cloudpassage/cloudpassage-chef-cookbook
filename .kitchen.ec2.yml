@@ -57,7 +57,7 @@ platforms:
   - name: windows-2012r2
     driver:
       image_id: <%= ENV['WIN_2012_R2_AMI_ID'] %>
-      # image_id: ami-83a5bce2
+    # image_id: ami-83a5bce2
 
   # You'll need to build your own AMI with Powershell v4 installed.
   # Otherwise, comment out windows-2008r2 below.

@@ -15,6 +15,7 @@ default['cloudpassage']['windows_installer_port'] = '443'
 default['cloudpassage']['windows_installer_host'] = 'packages.cloudpassage.com'
 default['cloudpassage']['windows_installer_path'] = '/windows/'
 default['cloudpassage']['windows_installer_file_name'] = 'cphalo-3.6.6-win64.exe'
+default['cloudpassage']['windows_installer_registry_key'] = 'HKLM\SYSTEM\CurrentControlSet\services\cphalo'
 default['cloudpassage']['apt_repo_url'] = 'http://packages.cloudpassage.com/debian'
 default['cloudpassage']['apt_repo_distribution'] = 'debian'
 default['cloudpassage']['apt_repo_components'] = ['main']

@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 2.6.0
+Version: 2.6.1
 
 Author: CloudPassage
 

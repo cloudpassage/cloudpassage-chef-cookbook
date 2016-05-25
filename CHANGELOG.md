@@ -82,3 +82,7 @@
 ## 2.6.0:
 
 * Add Powershell script to correct path in Windows registry (4419)
+
+## 2.6.1:
+
+* Corrected syntax error in attributes

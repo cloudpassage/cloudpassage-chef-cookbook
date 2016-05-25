@@ -78,3 +78,7 @@
 * Added linux agent version to kitchen_ec2 config (208)
 
 * Override retryable_tries in kitchen-ec2 config to accommodate occasionally slow Windows provisioning
+
+## 2.6.0:
+
+* Add Powershell script to correct path in Windows registry (4419)

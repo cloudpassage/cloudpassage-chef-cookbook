@@ -86,3 +86,7 @@
 ## 2.6.1:
 
 * Corrected syntax error in attributes
+
+## 2.6.2:
+
+* Updated agent version

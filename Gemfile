@@ -4,6 +4,7 @@ gem 'rake', '~>10.4.2'
 gem 'berkshelf', '~>4.0'
 
 group :spec do
+  gem 'rspec', '<3.5.0'
   gem 'rubocop', '~>0.34.2'
   gem 'foodcritic', '~>5.0.0'
   gem 'chefspec', '~>4.4.0'

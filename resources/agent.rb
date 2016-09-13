@@ -1,4 +1,4 @@
-actions :install
+actions :install, :reconfigure, :remove
 default_action :install
 property :agent_key, [String, nil]
 property :grid_url, String, default: 'https://grid.cloudpassage.com/grid'
@@ -64,6 +64,7 @@ action :install do
   when 'debian', 'rhel'
     package 'cphalo' do
       version linux_agent_version unless linux_agent_version.nil?
+      notifies :start, 'service[CloudPassage Halo Agent for Linux]', :delayed
       action :upgrade
     end
     execute 'cphalo-config' do
@@ -81,7 +82,7 @@ action :install do
         provider Chef::Provider::Service::Systemd
       end
       supports [:start, :stop, :restart]
-      action [:restart]
+      action [:nothing]
     end
   when 'windows'
     win_installer_version = windows_installer_file_name.gsub(/.*cphalo-(\d*\.\d*\.\d*)-win64.exe/, '\1')
@@ -95,10 +96,72 @@ action :install do
       version win_installer_version
       installer_type :custom
       action :install
+      notifies :start, 'service[CloudPassage Halo Agent for Windows]', :delayed
     end
     service 'CloudPassage Halo Agent for Windows' do
       service_name 'cphalo'
       action [:enable, :start]
+    end
+  end
+end
+
+action :reconfigure do
+  fail 'agent_key is not set, keyless reconfigure is not supported!' if agent_key.nil?
+  conf = { 'agent_key' => agent_key, 'grid_url' => grid_url, 'proxy_host' => proxy_host,
+           'proxy_port' => proxy_port,
+           'proxy_user' => proxy_user, 'proxy_password' => proxy_password, 'read_only' => read_only,
+           'server_tag' => server_tag, 'server_label' => server_label, 'dns' => dns,
+           'windows_installer_protocol' => windows_installer_protocol,
+           'windows_installer_port' => windows_installer_port,
+           'windows_installer_host' => windows_installer_host,
+           'windows_installer_path' => windows_installer_path,
+           'windows_installer_file_name' => windows_installer_file_name,
+           'apt_repo_url' => apt_repo_url, 'apt_repo_distribution' => apt_repo_distribution,
+           'apt_repo_components' => apt_repo_components, 'yum_repo_url' => yum_repo_url,
+           'apt_key_url' => apt_key_url, 'yum_key_url' => yum_key_url }
+
+  reconfigurator = CloudPassage::ConfigHelper.new(conf)
+  case node['platform_family']
+  when 'debian', 'rhel'
+    execute 'cphalo-config' do
+      command [
+        '/opt/cloudpassage/bin/configure',
+        reconfigurator.linux_configuration].join(' ')
+      action :run
+      notifies :restart, 'service[CloudPassage Halo Agent for Linux]', :delayed
+    end
+    service 'CloudPassage Halo Agent for Linux' do
+      service_name 'cphalod'
+      # Force systemd for RHEL 7+.
+      if (%w(redhat centos).include? node['platform']) && node['platform_version'].to_f >= 7
+        provider Chef::Provider::Service::Systemd
+      end
+      supports [:start, :stop, :restart]
+      action [:nothing]
+    end
+  when 'windows'
+    win_reconfigure_options = reconfigurator.windows_reconfiguration
+    service 'CloudPassage Halo Agent for Windows' do
+      service_name 'cphalo'
+      start_command "net start #{service_name} #{win_reconfigure_options}"
+      action [:stop, :start]
+    end
+  end
+end
+
+action :remove do
+  case node['platform_family']
+  when 'debian', 'rhel'
+    package 'cphalo' do
+      action :remove
+    end
+  when 'windows'
+    windows_package 'CloudPassage Halo' do
+      source configurator.windows_installation_path
+      options win_start_options
+      version win_installer_version
+      installer_type :custom
+      action :remove
     end
   end
 end

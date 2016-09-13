@@ -78,3 +78,9 @@
 * Added linux agent version to kitchen_ec2 config (208)
 
 * Override retryable_tries in kitchen-ec2 config to accommodate occasionally slow Windows provisioning
+
+## 2.6.0:
+
+* Agent does not restart every time LWRP is run, only if calling :reconfigure
+
+* Added :reconfigure and :remove actions

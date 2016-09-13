@@ -21,6 +21,11 @@ describe Chef::CloudPassage::ConfigHelper do
       @bare_helper = Chef::CloudPassage::ConfigHelper.new(bare)
     end
 
+    it 'Reconfigure for Windows matches expected output' do
+      expect(@bare_helper.windows_reconfiguration).to(
+        eql config['win_bare_reconfig'])
+    end
+
     it 'Bare takes one param' do
       expect(@bare_helper).to(
         be_an_instance_of Chef::CloudPassage::ConfigHelper)

@@ -6,6 +6,8 @@ Version: 2.5.0
 
 Author: CloudPassage
 
+[www.cloudpassage.com](https://www.cloudpassage.com)
+
 Master branch: [![Build Status](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook.svg?branch=master)](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook)
 
 Develop branch: [![Build Status (develop branch)](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook.svg?branch=develop)](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook)
@@ -136,3 +138,8 @@ cloudpassage_halo resource:
 
 Note: If the repo URL is configured as an empty string, the recipe will not
 attempt to add the appropriate CloudPassage repository on the node.
+
+<!---
+#CPTAGS:community-supported automation deployment
+#TBICON:images/ruby_icon.png
+-->

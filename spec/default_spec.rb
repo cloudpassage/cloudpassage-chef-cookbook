@@ -17,9 +17,9 @@ describe 'cloudpassage' do
     describe "for #{platform} #{version}. #{process}." do
       context 'Halo is not already configured.' do
         before(:all) do
-          @chef_run = ChefSpec::SoloRunner.new(platform: "#{platform}",
-                                               version: "#{version}",
-                                               step_into: ['cloudpassage_agent'])
+          @chef_run = ChefSpec::ServerRunner.new(platform: "#{platform}",
+                                                 version: "#{version}",
+                                                 step_into: ['cloudpassage_agent'])
           @chef_run.converge(described_recipe)
         end
         it 'Sets up repo for Debian Linux.' do

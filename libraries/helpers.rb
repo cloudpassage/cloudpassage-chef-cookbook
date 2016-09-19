@@ -40,6 +40,18 @@ class Chef
           @win_conf.dns, ' /NOSTART'].join('')
       end
 
+      def windows_reconfiguration
+        [
+          "/AGENT-KEY=#{@config['agent_key']}", @win_conf.grid,
+          @win_conf.server_label,
+          @win_conf.server_tag,
+          @win_conf.read_only,
+          @win_conf.proxy_host,
+          @win_conf.proxy_user,
+          @win_conf.proxy_pass,
+          @win_conf.dns].join('')
+      end
+
       def linux_configuration
         [
           "--agent-key=#{@config['agent_key']}", @lin_conf.grid,

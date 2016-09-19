@@ -81,6 +81,10 @@
 
 ## 2.6.0:
 
+* Agent does not restart every time LWRP is run, only if calling :reconfigure
+
+* Added :reconfigure and :remove actions
+
 * Add Powershell script to correct path in Windows registry (4419)
 
 ## 2.6.1:
@@ -90,3 +94,15 @@
 ## 2.6.2:
 
 * Updated agent version
+
+## 3.0.0:
+
+* Added reconfigure and remove actions to the LWRP
+
+* Update default agent version to 3.7.8
+
+* Update Solorunner to ServerRunner
+
+* Update Yum dependency to be >= 3.8.0
+
+* Added ChefDK testcases up through version 17.17

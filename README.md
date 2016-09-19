@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 2.5.0
+Version: 3.0.0
 
 Author: CloudPassage
 
@@ -19,7 +19,7 @@ Feedback: toolbox@cloudpassage.com
 This cookbook installs and upgrades CloudPassage Halo on Windows, Debian-based
 (Debian, Ubuntu) and RHEL-based (RHEL, CentOS, Oracle) operating systems.
 
-This cookbook supports installation by resource, which is the preferred method.  
+This cookbook supports installation by resource, which is the preferred method.
 Optionally, you can also use the default recipe, but you'll need to provide configuration
 information via attributes or data bag.
 
@@ -96,10 +96,24 @@ as simply as:
       action :install
     end
 
+The reconfigure action forces reconfiguration of the agent:
+
+    cloudpassage_agent 'halo' do
+      agent_key AGENT_KEY_GOES_HERE
+      server_tag SERVER_TAG_GOES_HERE
+      action :reconfigure
+    end
+
+The remove action uninstalls the agent:
+
+    cloudpassage_agent 'halo' do
+      action :remove
+    end
+
 Don't forget to add ```depends 'cloudpassage'``` to your metadata.rb file if
 you're including the resource in another cookbook.
 
-As with the recipe, you can accept almost all the defaults and rock and roll.  
+As with the recipe, you can accept almost all the defaults and rock and roll.
 You don't even have to define the ```server_tag```, but you'll spend a lot of
 time manually organizing your hosts in the CloudPassage Halo portal if you
 don't.

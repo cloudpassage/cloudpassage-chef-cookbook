@@ -94,3 +94,5 @@
 * Update Solorunner to ServerRunner
 
 * Update Yum dependency to be >= 3.8.0
+
+* Added ChefDK testcases up through version 17.17

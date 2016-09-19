@@ -38,6 +38,16 @@ information via attributes or data bag.
 
  - chef-client 12.5.1 (using Chef DK 0.9.0)
  - chef-client 12.6 (using Chef DK 0.10.0)
+ - chef-client 12.12.15 (using Chef DK 0.9.0)
+ - chef-client 12.12.15 (using Chef DK 0.10.0)
+ - chef-client 12.12.15 (using Chef DK 0.11.0)
+ - chef-client 12.12.15 (using Chef DK 0.12.0)
+ - chef-client 12.12.15 (using Chef DK 0.13.21)
+ - chef-client 12.12.15 (using Chef DK 0.14.25)
+ - chef-client 12.12.15 (using Chef DK 0.15.15)
+ - chef-client 12.12.15 (using Chef DK 0.15.16)
+ - chef-client 12.12.15 (using Chef DK 0.16.28)
+ - chef-client 12.12.15 (using Chef DK 0.17.17)
 
 ### Cookbooks
 

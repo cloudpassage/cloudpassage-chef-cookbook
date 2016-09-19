@@ -2,12 +2,22 @@ rvm:
   - 2.1
   - 2.2
 env:
-  - CHEF_DK_VERSION=0.10.0
   - CHEF_DK_VERSION=0.9.0
+  - CHEF_DK_VERSION=0.10.0
+  - CHEF_DK_VERSION=0.11.0
+  - CHEF_DK_VERSION=0.12.0
+  - CHEF_DK_VERSION=0.13.21
+  - CHEF_DK_VERSION=0.14.25
+  - CHEF_DK_VERSION=0.15.15
+  - CHEF_DK_VERSION=0.15.16
+  - CHEF_DK_VERSION=0.16.28
+  - CHEF_DK_VERSION=0.17.17
 
 sudo: required
 
 before_install: curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -P chefdk -v $CHEF_DK_VERSION
-install: chef exec bundle install
-
-script: chef exec rake travis
+install:
+  - chef exec bundle install
+script:
+  - chef exec berks install
+  - chef exec rake travis

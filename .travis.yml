@@ -16,6 +16,8 @@ env:
 sudo: required
 
 before_install: curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -P chefdk -v $CHEF_DK_VERSION
-install: chef exec bundle install
-
-script: chef exec rake travis
+install:
+  - chef exec bundle install
+script:
+  - chef exec berks install
+  - chef exec rake travis

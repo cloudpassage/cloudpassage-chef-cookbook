@@ -98,6 +98,16 @@ action :install do
       action :install
       notifies :start, 'service[CloudPassage Halo Agent for Windows]', :delayed
     end
+    windows_installer_registry_key = node['cloudpassage']['windows_installer_registry_key']
+    powershell_script 'Confirm cphalo ImagePath Reg Key has quotes' do
+      code <<-EOH
+      $cur_keys=(Get-ItemProperty -path #{windows_installer_registry_key})
+      if ((! $cur_keys.ImagePath.Contains("`""))){
+        $cur_image_path=($cur_keys.ImagePath)
+        Set-ItemProperty -path #{windows_installer_registry_key} -name ImagePath -value `"$cur_image_path`"
+      }
+      EOH
+    end
     service 'CloudPassage Halo Agent for Windows' do
       service_name 'cphalo'
       action [:enable, :start]

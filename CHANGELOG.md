@@ -106,3 +106,7 @@
 * Update Yum dependency to be >= 3.8.0
 
 * Added ChefDK testcases up through version 17.17
+
+## 3.0.1:
+
+* Restricted compat_resource version to be >=12.14.3

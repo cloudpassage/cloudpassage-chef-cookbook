@@ -12,6 +12,8 @@ Master branch: [![Build Status](https://travis-ci.org/cloudpassage/cloudpassage-
 
 Develop branch: [![Build Status (develop branch)](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook.svg?branch=develop)](https://travis-ci.org/cloudpassage/cloudpassage-chef-cookbook)
 
+Chef Partner Cookbook Program: [![Build Status](https://jenkins-01.eastus.cloudapp.azure.com/job/cloudpassage-cookbook/badge/icon)](https://jenkins-01.eastus.cloudapp.azure.com/job/cloudpassage-cookbook/)
+
 Feedback: toolbox@cloudpassage.com
 
 ## Scope

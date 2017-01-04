@@ -59,6 +59,7 @@ action :install do
       not_if yum_repo_url == '' || yum_repo_url.nil?
     end
   end
+
   # Now we install...
   case node['platform_family']
   when 'debian', 'rhel'
@@ -67,6 +68,7 @@ action :install do
       notifies :start, 'service[CloudPassage Halo Agent for Linux]', :delayed
       action :upgrade
     end
+
     execute 'cphalo-config' do
       command [
         '/opt/cloudpassage/bin/configure',
@@ -75,6 +77,53 @@ action :install do
       # We don't run the configurator if the store.db file already exists
       not_if { ::File.exist?('/opt/cloudpassage/data/store.db') }
     end
+
+    if node['platform_family'].eql? 'debian'
+      cookbook_file "/tmp/systemd_apt_install.sh" do
+        source "systemd_apt_install.sh"
+        mode 0755
+        only_if "dpkg -s systemd"
+      end
+
+      execute "Set up persistence for systemd apt" do
+         command "sh /tmp/systemd_apt_install.sh"
+         only_if "dpkg -s systemd"
+      end
+
+      cookbook_file "/tmp/upstart_apt_install.sh" do
+        source "upstart_apt_install.sh"
+        mode 0755
+        only_if "dpkg -s upstart"
+      end
+
+      execute "Set up persistence for upstart apt" do
+        command "sh /tmp/upstart_apt_install.sh"
+        only_if "dpkg -s upstart"
+      end
+    else
+      cookbook_file "/tmp/systemd_yum_install.sh" do
+        source "systemd_yum_install.sh"
+        mode 0755
+        only_if "rpm -q systemd"
+      end
+
+      execute "Set up persistence for systemd yum" do
+        command "sh /tmp/systemd_yum_install.sh"
+        only_if "rpm -q systemd"
+      end
+
+      cookbook_file "/tmp/upstart_yum_install.sh" do
+        source "upstart_yum_install.sh"
+        mode 0755
+        only_if "rpm -q upstart"
+      end
+
+      execute "Set up persistence for upstart yum" do
+        command "sh /tmp/upstart_yum_install.sh"
+        only_if "rpm -q upstart"
+      end
+    end
+
     service 'CloudPassage Halo Agent for Linux' do
       service_name 'cphalod'
       # Force systemd for RHEL 7+.
@@ -84,6 +133,7 @@ action :install do
       supports [:start, :stop, :restart]
       action [:nothing]
     end
+
   when 'windows'
     win_installer_version = windows_installer_file_name.gsub(/.*cphalo-(\d*\.\d*\.\d*)-win64.exe/, '\1')
     win_start_options = configurator.windows_configuration

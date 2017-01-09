@@ -110,3 +110,7 @@
 ## 3.0.1:
 
 * Restricted compat_resource version to be >=12.14.3
+
+## 3.0.2:
+
+* Restricted nio4r to be ~>1.2.1. latest nio4r only supports ruby 2.2.2+

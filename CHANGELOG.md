@@ -113,4 +113,4 @@
 
 ## 3.0.2:
 
-* Update force nio4r ~> 1.2.1. 2.0.0 is for ruby 2.2.2+ only
+* Restricted nio4r to be ~>1.2.1. latest nio4r only supports ruby 2.2.2+

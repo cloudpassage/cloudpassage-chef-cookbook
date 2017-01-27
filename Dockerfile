@@ -8,6 +8,6 @@ COPY ./ /source/
 
 WORKDIR /source/
 
-RUN gem install bundler
+#RUN gem install bundler
 
 RUN bundle install

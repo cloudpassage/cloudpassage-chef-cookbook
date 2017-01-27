@@ -13,7 +13,7 @@ COPY ./ /source/
 
 WORKDIR /source/
 
-RUN gem install rake
+RUN gem install rake -v 10.5.0
 
 RUN bundle install
 

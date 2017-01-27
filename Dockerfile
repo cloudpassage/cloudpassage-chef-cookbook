@@ -16,3 +16,5 @@ WORKDIR /source/
 RUN gem install rake
 
 RUN bundle install
+
+CMD rake integration:ec2

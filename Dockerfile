@@ -10,4 +10,4 @@ WORKDIR /source/
 
 #RUN gem install bundler
 
-#RUN bundle install
+RUN bundle install

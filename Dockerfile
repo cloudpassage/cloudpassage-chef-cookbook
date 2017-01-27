@@ -12,6 +12,6 @@ COPY ./ /source/
 
 WORKDIR /source/
 
-#RUN gem install bundler
+RUN gem install rake
 
 RUN bundle install

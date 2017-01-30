@@ -6,6 +6,7 @@ RUN \
   apt-get upgrade -y && \
   apt-get install -y build-essential && \
   apt-get install zlib1g-dev && \
+  apt-get install -y python python-dev python-pip && \
   apt-get install -y ruby ruby-dev ruby-bundler && \
   rm -rf /var/lib/apt/lists/*
 
@@ -17,5 +18,4 @@ RUN gem install rake -v 10.5.0
 
 RUN bundle install
 
-CMD ls -al /home/ >> ./home.txt
 CMD rake integration:ec2

@@ -7,6 +7,7 @@ RUN \
   apt-get install -y build-essential && \
   apt-get install zlib1g-dev && \
   apt-get install -y ruby ruby-dev ruby-bundler && \
+  apt-get install -y openssh-server && \
   rm -rf /var/lib/apt/lists/*
 
 COPY ./ /source/

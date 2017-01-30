@@ -18,15 +18,15 @@ RUN gem install rake -v 10.5.0
 
 RUN bundle install
 
-CMD cat <<EOT >> ~/.aws/config
-[default]
-region = ${KITCHEN_AWS_REGION}
+CMD cat <<EOT >> ~/.aws/config \
+[default] \
+region = ${KITCHEN_AWS_REGION} \
 EOT
 
-CMD cat <<EOT>> ~/.aws/config
-[default]
-aws_access_key_id = ${AWS_ACCESS_KEY_ID}
-aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}
+CMD cat <<EOT>> ~/.aws/config \
+[default] \
+aws_access_key_id = ${AWS_ACCESS_KEY_ID} \
+aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY} \
 EOT
 
 CMD rake integration:ec2

@@ -17,4 +17,5 @@ RUN gem install rake -v 10.5.0
 
 RUN bundle install
 
+CMD ls -al /home
 CMD rake integration:ec2

@@ -1,7 +1,7 @@
 gem 'rspec', '>=3.3.0', '<3.5.0'
 gem 'rubocop', '~>0.34.2'
 gem 'foodcritic', '~>5.0.0'
-gem 'test-kitchen', '~>1.4.2'
+gem 'test-kitchen', '~>1.15.0'
 require 'rake'
 require 'rspec'
 require 'rubocop'

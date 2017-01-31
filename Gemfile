@@ -16,7 +16,6 @@ group :integration do
   gem 'kitchen-vagrant', '~>0.19.0'
   gem 'kitchen-ec2', '~>0.10.0'
   gem 'serverspec', '~>2.29.1'
-  gem 'winrm-transport', '~>1.0.2'
-  gem 'winrm', '~>2.1.2'
-  gem 'winrm-fs', '~>1.0.4'
+  gem 'winrm-transport', '~>1.0.4'
+  gem 'winrm-fs', '~>1.0'
 end

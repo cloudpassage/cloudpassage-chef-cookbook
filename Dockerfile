@@ -18,5 +18,7 @@ RUN mkdir /root/.aws
 RUN gem install rake -v 10.5.0
 
 RUN bundle install
+RUN gem install winrm -v 2.1.2
+RUN gem install winrm-fs
 
 CMD rake integration:ec2

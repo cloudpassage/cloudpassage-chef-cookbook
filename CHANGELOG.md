@@ -110,3 +110,7 @@
 * Update Linux agent version to 3.9.5
 
 * Update Windows agent version to 3.9.7
+
+## 3.0.4:
+
+* Set up Dockerfile to test windows and linux instances with the latest agents

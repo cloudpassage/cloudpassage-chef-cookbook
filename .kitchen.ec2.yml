@@ -22,14 +22,6 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
-    driver:
-      image_id: <%= ENV['UBUNTU_12_AMI_ID'] %>
-      # image_id: ami-01470531
-      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
-    transport:
-      username: <%= ENV['UBUNTU_12_USER'] %>
-      # username: ubuntu
   - name: ubuntu-14.04
     driver:
       image_id: <%= ENV['UBUNTU_14_AMI_ID'] %>
@@ -40,19 +32,19 @@ platforms:
       # username: ubuntu
   - name: rhel-7.2
     driver:
-      image_id: <%= ENV['RHEL_72_AMI_ID'] %>
+      image_id: <%= ENV['RHEL_73_AMI_ID'] %>
       # image_id: ami-775e4f16
       user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
-      username: <%= ENV['RHEL_72_USER'] %>
+      username: <%= ENV['RHEL_73_USER'] %>
       # username: ec2-user
   - name: amzn-2015.09
     driver:
-      image_id: <%= ENV['AMZN_LIN_2015_09_AMI_ID'] %>
+      image_id: <%= ENV['AMZN_LIN_2016_09_AMI_ID'] %>
       # image_id: ami-775e4f16
       user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
-      username: <%= ENV['AMZN_LIN_2015_09_USER'] %>
+      username: <%= ENV['AMZN_LIN_2016_09_USER'] %>
       # username: ec2-user
   - name: windows-2012r2
     driver:

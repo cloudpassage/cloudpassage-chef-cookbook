@@ -92,7 +92,7 @@ override the defaults in the attributes file:
     proxy_user
     proxy_password
     
-## Agent Upgrading
+## Agent Upgrade
 
 The Linux halo version of the agent will be updated to the latest by default. If the version of the halo agent is not the latest on your node, bootstrapping the node again will update its agent version to the latest.
 

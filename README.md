@@ -86,6 +86,16 @@ need to configure much more than the ```agent_key``` and ```server_tag``` node
 attributes.  But if you want to go nuts with it, the functionality is there.
 
 
+## Agent Upgrading
+
+The Linux halo version of the agent will be updated to the latest by default. If the version of the halo agent is not the latest on your node, bootstrapping the node again will update its agent version to the latest.
+
+The Windows halo version does not update automatically, the specific windows agent version must be specified in attributes/default.rb file. 
+
+Edit the following parameter's value (For Example):
+```
+default['cloudpassage']['windows_installer_file_name'] = 'cphalo-3.9.7-win64.exe'
+```
 
 The following configuration options, if delivered in an encrypted data bag, will
 override the defaults in the attributes file:

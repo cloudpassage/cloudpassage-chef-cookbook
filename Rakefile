@@ -32,7 +32,7 @@ namespace :integration do
   task :ec2 do
     desc 'Run kitchen-ec2 tests'
     ENV['KITCHEN_YAML'] = '.kitchen.ec2.yml'
-    Kitchen::CLI.new([], concurrency: 4, destroy: 'always').test
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
   end
 end
 

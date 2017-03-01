@@ -107,11 +107,11 @@ platforms:
     transport:
       username: <%= ENV['AMZN_LIN_2016_09_USER'] %>
       # username: ec2-user
-  - name: amzn-2015.09
-    driver:
-      image_id: <%= ENV['AMZN_LIN_2015_09_AMI_ID'] %>
-      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
-    transport:
+  # - name: amzn-2015.09
+  #   driver:
+  #     image_id: <%= ENV['AMZN_LIN_2015_09_AMI_ID'] %>
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
       username: <%= ENV['AMZN_LIN_2016_09_USER'] %>
   - name: windows-2012r2
     driver:

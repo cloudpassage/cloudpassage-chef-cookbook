@@ -99,13 +99,6 @@ platforms:
       user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
       username: <%= ENV['ORACLE_7_USER'] %>
-  - name: oracle-5
-    driver:
-      image_id: <%= ENV['ORACLE_5_AMI_ID'] %>
-      # image_id: ami-775e4f16
-      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
-    transport:
-      username: <%= ENV['ORACLE_7_USER'] %>
   - name: amzn-2016.09
     driver:
       image_id: <%= ENV['AMZN_LIN_2016_09_AMI_ID'] %>

@@ -99,28 +99,28 @@ platforms:
       user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
       username: <%= ENV['ORACLE_7_USER'] %>
-  # - name: amzn-2016.09
-  #   driver:
-  #     image_id: <%= ENV['AMZN_LIN_2016_09_AMI_ID'] %>
-  #     # image_id: ami-775e4f16
-  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
-  #   transport:
-  #     username: <%= ENV['AMZN_LIN_2016_09_USER'] %>
-  #     # username: ec2-user
-  # - name: amzn-2015.09
-  #   driver:
-  #     image_id: <%= ENV['AMZN_LIN_2015_09_AMI_ID'] %>
-  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
-  #   transport:
+  - name: amzn-2016.09
+    driver:
+      image_id: <%= ENV['AMZN_LIN_2016_09_AMI_ID'] %>
+      # image_id: ami-775e4f16
+      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+    transport:
+      username: <%= ENV['AMZN_LIN_2016_09_USER'] %>
+      # username: ec2-user
+  - name: amzn-2015.09
+    driver:
+      image_id: <%= ENV['AMZN_LIN_2015_09_AMI_ID'] %>
+      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+    transport:
       username: <%= ENV['AMZN_LIN_2016_09_USER'] %>
   - name: windows-2012r2
     driver:
       image_id: <%= ENV['WIN_2012_R2_AMI_ID'] %>
     # image_id: ami-83a5bce2
-  - name: windows-2008r2ps1
-    driver:
-      image_id: <%= ENV['WIN_2008_R2_AMI_ID'] %>
-      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  # - name: windows-2008r2ps1
+  #   driver:
+  #     image_id: <%= ENV['WIN_2008_R2_AMI_ID'] %>
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
 suites:
   - name: default
     run_list:

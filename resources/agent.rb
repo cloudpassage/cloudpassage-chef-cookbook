@@ -13,15 +13,15 @@ property :server_label, [String, nil]
 property :dns, kind_of: [TrueClass, FalseClass], default: true
 property :windows_installer_protocol, String, default: 'https'
 property :windows_installer_port, String, default: '443'
-property :windows_installer_host, String, default: 'packages.cloudpassage.com'
+property :windows_installer_host, String, default: 'production.packages.cloudpassage.com'
 property :windows_installer_path, String, default: '/windows/'
-property :windows_installer_file_name, String, default: 'cphalo-3.6.6-win64.exe'
-property :apt_repo_url, [String, nil], default: 'http://packages.cloudpassage.com/debian'
+property :windows_installer_file_name, String, default: 'cphalo-3.9.7-win64.exe'
+property :apt_repo_url, [String, nil], default: 'https://production.packages.cloudpassage.com/debian'
 property :apt_repo_distribution, [String, nil], default: 'debian'
 property :apt_repo_components, [String, Array, nil], default: ['main']
-property :yum_repo_url, [String, nil], default: 'http://packages.cloudpassage.com/redhat/$basearch'
-property :apt_key_url, [String, nil], default: 'http://packages.cloudpassage.com/cloudpassage.packages.key'
-property :yum_key_url, [String, nil], default: 'http://packages.cloudpassage.com/cloudpassage.packages.key'
+property :yum_repo_url, [String, nil], default: 'https://production.packages.cloudpassage.com/redhat/$basearch'
+property :apt_key_url, [String, nil], default: 'https://production.packages.cloudpassage.com/cloudpassage.packages.key'
+property :yum_key_url, [String, nil], default: 'https://production.packages.cloudpassage.com/cloudpassage.packages.key'
 
 action :install do
   fail 'agent_key is not set, agent will not register without one!' if agent_key.nil?

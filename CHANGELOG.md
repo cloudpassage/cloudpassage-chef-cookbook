@@ -114,3 +114,7 @@
 ## 3.0.4:
 
 * Set up Dockerfile to test windows and linux instances with the latest agents
+
+## 3.0.5:
+
+* Update Windows and Linux repo/key urls to production.packages

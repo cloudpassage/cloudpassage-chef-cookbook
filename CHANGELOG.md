@@ -118,3 +118,7 @@
 ## 3.0.5:
 
 * Update Windows and Linux repo/key urls to production.packages
+
+## 3.0.6:
+
+* Update Windows and Linux repo/key to resources/agent.rb

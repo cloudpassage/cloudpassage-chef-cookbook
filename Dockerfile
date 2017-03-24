@@ -1,6 +1,9 @@
 FROM ubuntu:16.04
 MAINTAINER toolbox@cloudpassage.com
 
+ARG task
+ENV raketask $task
+
 RUN \
   apt-get update -y && \
   apt-get upgrade -y && \
@@ -21,4 +24,4 @@ RUN bundle install
 RUN gem install winrm -v 2.1.2
 RUN gem install winrm-fs
 
-CMD rake integration:ec2
+CMD $raketask

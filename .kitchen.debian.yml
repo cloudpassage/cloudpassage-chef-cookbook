@@ -1,0 +1,47 @@
+---
+# Requires environment variables for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+driver:
+  name: ec2
+  aws_ssh_key_id: <%= ENV['KITCHEN_AWS_SSH_KEY_ID'] %>
+  region: <%= ENV['KITCHEN_AWS_REGION'] %>
+  availability_zone: <%= ENV['KITCHEN_AWS_REGION_ZONE'] %>
+  require_chef_omnibus: true
+  subnet_id: <%= ENV['KITCHEN_AWS_SUBNET_ID'] %>
+  instance_type: <%= ENV['KITCHEN_EC2_INSTANCE_TYPE'] %>
+  associate_public_ip: <%= ENV['KITCHEN_EC2_PUBLIC_IP'] %>
+  security_group_ids: <%= ENV['KITCHEN_EC2_SECURITY_GROUP_IDS'] %>
+  interface: <%= ENV['KITCHEN_EC2_INTERFACE'] %>
+  retryable_tries: 120
+
+transport:
+  ssh_key: <%= ENV['KITCHEN_AWS_KEY_FILE'] %>
+  connection_timeout: 10
+  connection_retries: 5
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: debian-7
+    driver:
+      image_id: <%= ENV['DEBIAN_7_AMI_ID'] %>
+      # image_id: ami-775e4f16
+      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+    transport:
+      username: <%= ENV['DEBIAN_7_USER'] %>
+  - name: debian-8.1
+    driver:
+      image_id: <%= ENV['DEBIAN_81_AMI_ID'] %>
+      # image_id: ami-775e4f16
+      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+    transport:
+      username: <%= ENV['DEBIAN_7_USER'] %>
+
+suites:
+  - name: default
+    run_list:
+      - recipe[cloudpassage::default]
+    attributes:
+      cloudpassage:
+        agent_key: <%= ENV['HALO_AGENT_KEY'] %>
+        linux_agent_version: <%= ENV['HALO_AGENT_VERSION'] %>

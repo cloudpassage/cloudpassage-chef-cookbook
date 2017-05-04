@@ -22,6 +22,12 @@ provisioner:
   name: chef_zero
 
 platforms:
+  - name: ubuntu-16.04
+    driver:
+      image_id: <%= ENV['UBUNTU_16_AMI_ID'] %>
+      user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+    transport:
+      username: <%= ENV['UBUNTU_14_USER']%>
   - name: ubuntu-14.04
     driver:
       image_id: <%= ENV['UBUNTU_14_AMI_ID'] %>
@@ -30,7 +36,13 @@ platforms:
     transport:
       username: <%= ENV['UBUNTU_14_USER'] %>
       # username: ubuntu
-  - name: rhel-7.2
+  # - name: ubuntu-12.04
+  #   driver:
+  #     image_id: <%= ENV['UBUNTU_12_AMI_ID'] %>
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
+  #     username: <%= ENV['UBUNTU_14_USER'] %>
+  - name: rhel-7.3
     driver:
       image_id: <%= ENV['RHEL_73_AMI_ID'] %>
       # image_id: ami-775e4f16
@@ -38,25 +50,82 @@ platforms:
     transport:
       username: <%= ENV['RHEL_73_USER'] %>
       # username: ec2-user
-  - name: amzn-2015.09
+  # - name: rhel-6
+  #   driver:
+  #     image_id: <%= ENV['RHEL_6_AMI_ID'] %>
+  #     # image_id: ami-775e4f16
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
+  #     username: <%= ENV['RHEL_73_USER'] %>
+  # - name: centos-6
+  #   driver:
+  #     image_id: <%= ENV['CENTOS_6_AMI_ID'] %>
+  #     # image_id: ami-775e4f16
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
+  #     username: <%= ENV['CENTOS_6_USER'] %>
+  - name: centos-7
     driver:
-      image_id: <%= ENV['AMZN_LIN_2016_09_AMI_ID'] %>
+      image_id: <%= ENV['CENTOS_7_AMI_ID'] %>
       # image_id: ami-775e4f16
       user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
+      username: <%= ENV['CENTOS_6_USER'] %>
+  # - name: debian-7
+  #   driver:
+  #     image_id: <%= ENV['DEBIAN_7_AMI_ID'] %>
+  #     # image_id: ami-775e4f16
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
+  #     username: <%= ENV['DEBIAN_7_USER'] %>
+  # - name: debian-8.1
+  #   driver:
+  #     image_id: <%= ENV['DEBIAN_81_AMI_ID'] %>
+  #     # image_id: ami-775e4f16
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
+  #     username: <%= ENV['DEBIAN_7_USER'] %>
+  # - name: oracle-7
+  #   driver:
+  #     image_id: <%= ENV['ORACLE_7_AMI_ID'] %>
+  #     # image_id: ami-775e4f16
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
+  #     username: <%= ENV['ORACLE_7_USER'] %>
+  # - name: oracle-6
+  #   driver:
+  #     image_id: <%= ENV['ORACLE_6_AMI_ID'] %>
+  #     # image_id: ami-775e4f16
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
+      # username: <%= ENV['ORACLE_7_USER'] %>
+  # - name: amzn-2016.09
+    #driver:
+    #  image_id: <%= ENV['AMZN_LIN_2016_09_AMI_ID'] %>
+      # image_id: ami-775e4f16
+    #  user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+    #transport:
+    #  image_id: <%= ENV['AMZN_LIN_2016_09_AMI_ID'] %>
+      # image_id: ami-775e4f16
+    #  user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+    #transport:
+
       username: <%= ENV['AMZN_LIN_2016_09_USER'] %>
       # username: ec2-user
+  # - name: amzn-2015.09
+  #   driver:
+  #     image_id: <%= ENV['AMZN_LIN_2015_09_AMI_ID'] %>
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
+  #   transport:
+  #     username: <%= ENV['AMZN_LIN_2016_09_USER'] %>
   - name: windows-2012r2
     driver:
       image_id: <%= ENV['WIN_2012_R2_AMI_ID'] %>
     # image_id: ami-83a5bce2
-
-  # You'll need to build your own AMI with Powershell v4 installed.
-  # Otherwise, comment out windows-2008r2 below.
-  # - name: windows-2008r2
+  # - name: windows-2008r2ps1
   #   driver:
-  #     image_id: <%= ENV['AWS_AMI_2008R2'] %>
-
+  #     image_id: <%= ENV['WIN_2008_R2_AMI_ID'] %>
+  #     user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
 suites:
   - name: default
     run_list:

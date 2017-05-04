@@ -50,7 +50,7 @@ action :install do
       not_if apt_repo_url == '' || apt_repo_url.nil?
       action :add
     end
-  when 'rhel'
+  when 'rhel', 'amazon'
     yum_repository 'cloudpassage' do
       description 'CloudPassage Halo Repository'
       baseurl yum_repo_url
@@ -61,7 +61,7 @@ action :install do
   end
   # Now we install...
   case node['platform_family']
-  when 'debian', 'rhel'
+  when 'debian', 'rhel', 'amazon'
     package 'cphalo' do
       version linux_agent_version unless linux_agent_version.nil?
       notifies :start, 'service[CloudPassage Halo Agent for Linux]', :delayed
@@ -122,7 +122,7 @@ action :reconfigure do
 
   reconfigurator = CloudPassage::ConfigHelper.new(conf)
   case node['platform_family']
-  when 'debian', 'rhel'
+  when 'debian', 'rhel', 'amazon'
     execute 'cphalo-config' do
       command [
         '/opt/cloudpassage/bin/configure',
@@ -151,7 +151,7 @@ end
 
 action :remove do
   case node['platform_family']
-  when 'debian', 'rhel'
+  when 'debian', 'rhel', 'amazon'
     package 'cphalo' do
       action :remove
     end

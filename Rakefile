@@ -32,7 +32,49 @@ namespace :integration do
   task :ec2 do
     desc 'Run kitchen-ec2 tests'
     ENV['KITCHEN_YAML'] = '.kitchen.ec2.yml'
-    Kitchen::CLI.new([], concurrency: 4, destroy: 'always').test
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
+  end
+
+  task :ubuntu do
+    desc 'Run Ubuntu kitchen-test'
+    ENV['KITCHEN_YAML'] = '.kitchen.ubuntu.yml'
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
+  end
+
+  task :rhel do
+    desc 'Run rhel kitchen-test'
+    ENV['KITCHEN_YAML'] = '.kitchen.rhel.yml'
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
+  end
+
+  task :amzn do
+    desc 'Run amzn kitchen-test'
+    ENV['KITCHEN_YAML'] = '.kitchen.amazon.yml'
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
+  end
+
+  task :centos do
+    desc 'Run centos kitchen-test'
+    ENV['KITCHEN_YAML'] = '.kitchen.centos.yml'
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
+  end
+
+  task :debian do
+    desc 'Run debian kitchen-test'
+    ENV['KITCHEN_YAML'] = '.kitchen.debian.yml'
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
+  end
+
+  task :oracle do
+    desc 'Run Oracle kitchen-test'
+    ENV['KITCHEN_YAML'] = '.kitchen.oracle.yml'
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
+  end
+
+  task :windows do
+    desc 'Run kitchen-windows tests'
+    ENV['KITCHEN_YAML'] = '.kitchen.windows.yml'
+    Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
   end
 end
 

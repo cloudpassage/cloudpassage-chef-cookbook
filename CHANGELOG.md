@@ -122,3 +122,9 @@
 ## 3.0.6:
 
 * Update Windows and Linux repo/key to resources/agent.rb
+
+## 3.0.7
+
+* Update Windows and Linux Version to 4.0.0
+
+* Support Amazon linux

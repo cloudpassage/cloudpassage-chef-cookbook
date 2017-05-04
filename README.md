@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 3.0.6
+Version: 3.0.8
 
 Author: CloudPassage
 
@@ -48,6 +48,7 @@ information via attributes or data bag.
  - chef-client 12.12.15 (using Chef DK 0.15.16)
  - chef-client 12.12.15 (using Chef DK 0.16.28)
  - chef-client 12.12.15 (using Chef DK 0.17.17)
+ - chef-client 13.0.118-1 (using Chef DK 0.17.17)
 
 ### Cookbooks
 
@@ -91,16 +92,16 @@ override the defaults in the attributes file:
     agent_key
     proxy_user
     proxy_password
-    
+
 ## Agent Upgrade
 
 The Linux halo version of the agent will be updated to the latest by default. If the version of the halo agent is not the latest on your node, bootstrapping the node again will update its agent version to the latest.
 
-The Windows halo version does not update automatically, the specific windows agent version must be specified in attributes/default.rb file. 
+The Windows halo version does not update automatically, the specific windows agent version must be specified in attributes/default.rb file.
 
 Edit the following parameter's value (For Example):
 ```
-default['cloudpassage']['windows_installer_file_name'] = 'cphalo-3.9.7-win64.exe'
+default['cloudpassage']['windows_installer_file_name'] = 'cphalo-4.0.0-win64.exe'
 ```
 
 ## Resource cloudpassage_agent usage:

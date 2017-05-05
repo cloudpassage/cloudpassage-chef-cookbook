@@ -15,7 +15,7 @@ property :windows_installer_protocol, String, default: 'https'
 property :windows_installer_port, String, default: '443'
 property :windows_installer_host, String, default: 'production.packages.cloudpassage.com'
 property :windows_installer_path, String, default: '/windows/'
-property :windows_installer_file_name, String, default: 'cphalo-4.0.0-win64.exe'
+property :windows_installer_file_name, String, default: 'cphalo-4.0.1-win64.exe'
 property :apt_repo_url, [String, nil], default: 'https://production.packages.cloudpassage.com/debian'
 property :apt_repo_distribution, [String, nil], default: 'debian'
 property :apt_repo_components, [String, Array, nil], default: ['main']

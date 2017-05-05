@@ -110,9 +110,3 @@
 * Update Linux agent version to 3.9.5
 
 * Update Windows agent version to 3.9.7
-
-## 3.0.4:
-
-* Update Linux agent version to 4.0.0
-
-* Update Windows agent version to 4.0.0

@@ -121,6 +121,7 @@
 
 ## 3.0.6:
 
+
 * Update Windows and Linux repo/key to resources/agent.rb
 
 ## 3.0.7

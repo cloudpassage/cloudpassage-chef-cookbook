@@ -121,4 +121,17 @@
 
 ## 3.0.6:
 
+
 * Update Windows and Linux repo/key to resources/agent.rb
+
+## 3.0.7
+
+* Update Windows and Linux Version to 4.0.0
+
+* Support Amazon linux
+
+## 3.0.8
+
+* Update Windows/Linux Version to 4.0.1
+
+* 4.0.1 agent has silent service enabled.

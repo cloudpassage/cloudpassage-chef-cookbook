@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 3.0.6
+Version: 3.0.8
 
 Author: CloudPassage
 
@@ -48,6 +48,7 @@ information via attributes or data bag.
  - chef-client 12.12.15 (using Chef DK 0.15.16)
  - chef-client 12.12.15 (using Chef DK 0.16.28)
  - chef-client 12.12.15 (using Chef DK 0.17.17)
+ - chef-client 13.0.118-1 (using Chef DK 0.17.17)
 
 ### Cookbooks
 

@@ -14,9 +14,6 @@ describe 'CloudPassage Halo agent for Linux' do
     it 'is configured' do
       expect(file('/opt/cloudpassage/data/store.db')).to exist
     end
-    it 'is enabled' do
-      expect(service('cphalod')).to be_enabled
-    end
     it 'is running' do
       expect(service('cphalod')).to be_running
     end

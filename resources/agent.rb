@@ -42,6 +42,9 @@ action :install do
   # First, set up repos
   case node['platform_family']
   when 'debian'
+    apt_update 'update'
+    apt_package 'apt-transport-https'
+
     apt_repository 'cloudpassage' do
       uri apt_repo_url
       distribution apt_repo_distribution

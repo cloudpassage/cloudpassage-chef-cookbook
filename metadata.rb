@@ -8,7 +8,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 issues_url 'https://support.cloudpassage.com'
 source_url 'https://github.com/cloudpassage/cloudpassage-chef-cookbook'
 version '3.0.8'
-depends 'apt', '>=2.9.0'
+depends 'apt', '~>2.9.0'
 depends 'yum', '>=3.8.0'
 depends 'compat_resource', '>=12.14.3'
 supports 'ubuntu', '>=12.04'

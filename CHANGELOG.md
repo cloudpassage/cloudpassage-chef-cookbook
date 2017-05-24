@@ -135,3 +135,15 @@
 * Update Windows/Linux Version to 4.0.1
 
 * 4.0.1 agent has silent service enabled.
+
+## 4.0.0
+
+* BREAKING CHANGE
+
+* Chef-client 12.9+ is now required
+
+* apt, yum, and compat_resource cookbook not necessary
+
+* Chef DK version >= 1.4.3
+
+* Rspec version >= 3.5

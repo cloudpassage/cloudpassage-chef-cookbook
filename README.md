@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 3.0.8
+Version: 4.0.0
 
 Author: CloudPassage
 
@@ -36,24 +36,8 @@ information via attributes or data bag.
 
 ### Tested Chef Versions
 
- - chef-client 12.5.1 (using Chef DK 0.9.0)
- - chef-client 12.6 (using Chef DK 0.10.0)
- - chef-client 12.12.15 (using Chef DK 0.9.0)
- - chef-client 12.12.15 (using Chef DK 0.10.0)
- - chef-client 12.12.15 (using Chef DK 0.11.0)
- - chef-client 12.12.15 (using Chef DK 0.12.0)
- - chef-client 12.12.15 (using Chef DK 0.13.21)
- - chef-client 12.12.15 (using Chef DK 0.14.25)
- - chef-client 12.12.15 (using Chef DK 0.15.15)
- - chef-client 12.12.15 (using Chef DK 0.15.16)
- - chef-client 12.12.15 (using Chef DK 0.16.28)
- - chef-client 12.12.15 (using Chef DK 0.17.17)
- - chef-client 13.0.118-1 (using Chef DK 0.17.17)
-
-### Cookbooks
-
- - apt
- - yum
+ - chef-client 12.12.15 (using Chef DK 1.4.3)
+ - chef-client 13.0.118-1 (using Chef DK 1.4.3)
 
 ## Recipe cloudpassage::default usage:
 
@@ -92,12 +76,12 @@ override the defaults in the attributes file:
     agent_key
     proxy_user
     proxy_password
-    
+
 ## Agent Upgrade
 
 The Linux halo version of the agent will be updated to the latest by default. If the version of the halo agent is not the latest on your node, bootstrapping the node again will update its agent version to the latest.
 
-The Windows halo version does not update automatically, the specific windows agent version must be specified in attributes/default.rb file. 
+The Windows halo version does not update automatically, the specific windows agent version must be specified in attributes/default.rb file.
 
 Edit the following parameter's value (For Example):
 ```

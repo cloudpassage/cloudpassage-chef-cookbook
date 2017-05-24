@@ -2,6 +2,8 @@ rvm:
   - 2.3.3
 env:
   - CHEF_DK_VERSION=1.4.3
+  - CHEF_DK_VERSION=1.3.43
+  - CHEF_DK_VERSION=1.3.40
 
 sudo: required
 

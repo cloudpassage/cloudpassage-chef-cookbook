@@ -142,6 +142,8 @@
 
 * Chef-client 12.9+ is now required
 
+* Ruby 2.3.3+ is now required
+
 * apt, yum, and compat_resource cookbook not necessary
 
 * Chef DK version >= 1.4.3

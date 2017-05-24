@@ -24,7 +24,7 @@ describe 'cloudpassage' do
         end
         it 'Sets up repo for Debian Linux.' do
           if platform == 'debian'
-            expect(@chef_run).to add_apt_repository('cloudpassage')
+            expect(@chef_run).to add_foo_repository('cloudpassage')
           end
         end
         it 'Sets up repo for CentOS Linux.' do

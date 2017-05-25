@@ -144,7 +144,7 @@
 
 * Ruby 2.3.3+ is now required
 
-* apt, yum, and compat_resource cookbook not necessary
+* apt and yum cookbooks not necessary
 
 * Chef DK version >= 1.4.3
 

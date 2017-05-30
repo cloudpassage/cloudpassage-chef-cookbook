@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 3.0.8
+Version: 4.0.0
 
 Author: CloudPassage
 
@@ -26,34 +26,23 @@ information via attributes or data bag.
 ## Requirements and dependencies
 ### Tested and Supported Platforms
 
- - Ubuntu 12.04
- - Ubuntu 14.04
- - CentOS 6.7
- - CentOS 7.1
- - RHEL 7.2
- - Amazon Linux 2015.09
- - Windows Server 2012R2
+ - Ubuntu 12.04, 14.04, 16.04
+ - CentOS 6.7, 7.1
+ - Debian 7, 8
+ - RHEL 7.3
+ - Amazon Linux 2015.09, 2016.09, 2017.03
+ - Windows Server 2008R2, 2012R2
 
-### Tested Chef Versions
-
- - chef-client 12.5.1 (using Chef DK 0.9.0)
- - chef-client 12.6 (using Chef DK 0.10.0)
- - chef-client 12.12.15 (using Chef DK 0.9.0)
- - chef-client 12.12.15 (using Chef DK 0.10.0)
- - chef-client 12.12.15 (using Chef DK 0.11.0)
- - chef-client 12.12.15 (using Chef DK 0.12.0)
- - chef-client 12.12.15 (using Chef DK 0.13.21)
- - chef-client 12.12.15 (using Chef DK 0.14.25)
- - chef-client 12.12.15 (using Chef DK 0.15.15)
- - chef-client 12.12.15 (using Chef DK 0.15.16)
- - chef-client 12.12.15 (using Chef DK 0.16.28)
- - chef-client 12.12.15 (using Chef DK 0.17.17)
- - chef-client 13.0.118-1 (using Chef DK 0.17.17)
-
-### Cookbooks
-
- - apt
- - yum
+### Tested Chef Versions (Using Chef DK 1.4.3)
+ - chef-client 12.9.38
+ - chef-client 12.9.41
+ - chef-client 12.10.24
+ - chef-client 12.11.18
+ - chef-client 12.12.13
+ - chef-client 12.15.19
+ - chef-client 12.20.3
+ - chef-client 13.0.113
+ - chef-client 13.0.118
 
 ## Recipe cloudpassage::default usage:
 
@@ -101,7 +90,9 @@ The Windows halo version does not update automatically, the specific windows age
 
 Edit the following parameter's value (For Example):
 ```
-default['cloudpassage']['windows_installer_file_name'] = 'cphalo-4.0.0-win64.exe'
+
+default['cloudpassage']['windows_installer_file_name'] = 'cphalo-4.0.1-win64.exe'
+
 ```
 
 ## Resource cloudpassage_agent usage:

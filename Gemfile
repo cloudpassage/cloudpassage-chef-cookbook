@@ -5,10 +5,10 @@ gem 'berkshelf', '~>4.0'
 gem 'nio4r', '~>1.2.1'
 
 group :spec do
-  gem 'rspec', '>=3.4', '<3.5'
+  gem 'rspec', '>=3.4'
   gem 'rubocop', '~>0.34.2'
   gem 'foodcritic', '~>5.0.0'
-  gem 'chefspec', '~>4.4.0'
+  gem 'chefspec', '~>7.1.0'
 end
 
 group :integration do

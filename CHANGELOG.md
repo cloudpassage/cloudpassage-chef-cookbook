@@ -121,7 +121,6 @@
 
 ## 3.0.6:
 
-
 * Update Windows and Linux repo/key to resources/agent.rb
 
 ## 3.0.7
@@ -135,3 +134,17 @@
 * Update Windows/Linux Version to 4.0.1
 
 * 4.0.1 agent has silent service enabled.
+
+## 4.0.0
+
+* BREAKING CHANGE
+
+* Chef-client 12.9+ is now required
+
+* Ruby 2.3.3+ is now required
+
+* apt and yum cookbooks not necessary
+
+* Chef DK version >= 1.4.3
+
+* Rspec version >= 3.5

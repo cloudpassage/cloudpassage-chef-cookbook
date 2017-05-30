@@ -1,7 +1,4 @@
-gem 'rspec', '>=3.3.0', '<3.5.0'
-gem 'rubocop', '~>0.34.2'
-gem 'foodcritic', '~>5.0.0'
-gem 'test-kitchen', '~>1.15.0'
+gem 'rspec', '>=3.4'
 require 'rake'
 require 'rspec'
 require 'rubocop'
@@ -87,6 +84,6 @@ task spec: ['spec:spec']
 desc 'Runs all integration tests using kitchen-vagrant and kitchen-ec2'
 task integration: ['integration:vagrant', 'integration:ec2']
 task cloud: [:style, :spec, 'integration:ec2']
-task travis: [:style, :spec]
+task travis: [:spec]
 
 task default: [:style, :spec, :integration]

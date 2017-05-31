@@ -3,6 +3,7 @@ require 'rake'
 require 'rspec'
 require 'rubocop'
 require 'foodcritic'
+require_relative 'libraries/s3.rb'
 
 namespace :style do
   require 'rubocop/rake_task'

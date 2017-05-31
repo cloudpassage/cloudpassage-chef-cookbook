@@ -90,7 +90,9 @@ The Windows halo version does not update automatically, the specific windows age
 
 Edit the following parameter's value (For Example):
 ```
+
 default['cloudpassage']['windows_installer_file_name'] = 'cphalo-4.0.1-win64.exe'
+
 ```
 
 ## Resource cloudpassage_agent usage:

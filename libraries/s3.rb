@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'aws-sdk'
+require 'bundler/aws-sdk'
 require 'json'
 require 'stringio'
 

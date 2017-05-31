@@ -1,4 +1,5 @@
 # encoding: utf-8
+chef_gem 'aws-sdk'
 require 'aws-sdk'
 require 'json'
 require 'stringio'

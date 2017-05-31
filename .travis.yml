@@ -7,10 +7,8 @@ sudo: required
 
 before_install: curl -L https://www.chef.io/chef/install.sh | sudo bash -s -- -P chefdk -v $CHEF_DK_VERSION
 install:
-  - chef exec bundle install
   - bundle install
-script:
+  - chef exec bundle install
   - chef exec berks install
-  - ruby test.rb
-
-  # - chef exec rake travis
+script:
+  - chef exec rake integration:ec2

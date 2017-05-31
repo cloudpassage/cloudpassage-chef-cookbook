@@ -20,8 +20,15 @@ namespace :spec do
   RSpec::Core::RakeTask.new(:spec)
 end
 
+def setup_ssh_key
+  ssh_key = S3.show_object_contents(ENV['S3_SSH_Key_Bucket'], ENV['S3_SSH_Key_Name'])
+  File.open(ENV['S3_SSH_Key_Name'], 'w') { |file| file.write(ssh_key) }
+end
+
 namespace :integration do
   require 'kitchen/cli'
+  setup_ssh_key
+
   task :vagrant do
     desc 'Run kitchen-vagrant tests'
     ENV['KITCHEN_YAML'] = '.kitchen.yml'
@@ -35,8 +42,6 @@ namespace :integration do
 
   task :ubuntu do
     desc 'Run Ubuntu kitchen-test'
-    ssh_key = S3.show_object_contents(ENV['S3_SSH_Key_Bucket'], ENV['S3_SSH_Key_Name'])
-    File.open(ENV['S3_SSH_Key_Name'], 'w') { |file| file.write(ssh_key) }
     ENV['KITCHEN_YAML'] = '.kitchen.ubuntu.yml'
     Kitchen::CLI.new([], concurrency: 2, destroy: 'always').test
   end

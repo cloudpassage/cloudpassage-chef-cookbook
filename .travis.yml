@@ -11,4 +11,4 @@ install:
 script:
   - chef exec berks install
   - chef exec rake travis
-  - chef exec rake integration:rhel
+  - chef exec rake integration:ubuntu

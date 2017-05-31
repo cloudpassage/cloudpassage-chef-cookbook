@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rake', '~>10.4.2'
 gem 'berkshelf', '~>4.0'
 gem 'nio4r', '~>1.2.1'
-gem 'aws-sdk', '~>2.9.23'
 
 
 group :spec do

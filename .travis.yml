@@ -17,3 +17,4 @@ script:
   - chef exec rake integration:centos
   - chef exec rake integration:debian
   - chef exec rake integration:oracle
+  - chef exec rake integration:windows

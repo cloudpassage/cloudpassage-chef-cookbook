@@ -148,3 +148,7 @@
 * Chef DK version >= 1.4.3
 
 * Rspec version >= 3.5
+
+## 4.0.1
+
+* Added S3 travis daily deployment integration testing

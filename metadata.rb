@@ -7,7 +7,7 @@ description 'Installs/Configures CloudPassage Halo'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 issues_url 'https://support.cloudpassage.com'
 source_url 'https://github.com/cloudpassage/cloudpassage-chef-cookbook'
-version '4.0.0'
+version '4.0.1'
 chef_version '>= 12.9'
 depends 'compat_resource', '>=12.14.3'
 supports 'ubuntu', '>=12.04'

@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 4.0.1
+Version: 4.0.2
 
 Author: CloudPassage
 
@@ -91,7 +91,7 @@ The Windows halo version does not update automatically, the specific windows age
 Edit the following parameter's value (For Example):
 ```
 
-default['cloudpassage']['windows_installer_file_name'] = 'cphalo-4.0.1-win64.exe'
+default['cloudpassage']['windows_installer_file_name'] = 'cphalo-4.1.0-win64.exe'
 
 ```
 

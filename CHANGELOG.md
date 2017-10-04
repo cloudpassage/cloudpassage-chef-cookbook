@@ -152,3 +152,7 @@
 ## 4.0.1
 
 * Added S3 travis daily deployment integration testing
+
+## 4.0.2
+
+* Update Agent version to 4.1.1 (Linux) and 4.1.0 (Windows)

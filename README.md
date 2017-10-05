@@ -139,7 +139,7 @@ cloudpassage_halo resource:
 | agent_key                   | You MUST define this.  The default value will not register.                             |
 | grid_url                    | Only override this if you're running on your own grid.                                  |
 | linux_agent_version         | This forces a specific version of the Linux agent.                                      |
-| azure_id                    |                                                                                         |
+| azure_id                    | This is a user-defined string that is combined with the hostname to serve as a label    |
 | proxy_host                  | Tells the agent to use a proxy                                                          |
 | proxy_port                  | Defines the port for the proxy                                                          |
 | proxy_user                  | Define a username for proxy use                                                         |

@@ -3,6 +3,7 @@ default_action :install
 property :agent_key, [String, nil]
 property :grid_url, String, default: 'https://grid.cloudpassage.com/grid'
 property :linux_agent_version, [String, nil]
+property :azure_id, [String, nil]
 property :proxy_host, [String, nil]
 property :proxy_port, [String, nil]
 property :proxy_user, [String, nil]
@@ -15,7 +16,7 @@ property :windows_installer_protocol, String, default: 'https'
 property :windows_installer_port, String, default: '443'
 property :windows_installer_host, String, default: 'production.packages.cloudpassage.com'
 property :windows_installer_path, String, default: '/windows/'
-property :windows_installer_file_name, String, default: 'cphalo-4.0.1-win64.exe'
+property :windows_installer_file_name, String, default: 'cphalo-4.1.0-win64.exe'
 property :apt_repo_url, [String, nil], default: 'https://production.packages.cloudpassage.com/debian'
 property :apt_repo_distribution, [String, nil], default: 'debian'
 property :apt_repo_components, [String, Array, nil], default: ['main']
@@ -25,10 +26,20 @@ property :yum_key_url, [String, nil], default: 'https://production.packages.clou
 
 action :install do
   fail 'agent_key is not set, agent will not register without one!' if agent_key.nil?
+  hostname = node['hostname']
+  label =
+    if server_label.nil? && azure_id
+      "#{azure_id}_#{hostname}"
+    elsif server_label
+      server_label
+    else
+      nil
+    end
+
   conf = { 'agent_key' => agent_key, 'grid_url' => grid_url, 'proxy_host' => proxy_host,
            'proxy_port' => proxy_port,
            'proxy_user' => proxy_user, 'proxy_password' => proxy_password, 'read_only' => read_only,
-           'server_tag' => server_tag, 'server_label' => server_label, 'dns' => dns,
+           'server_tag' => server_tag, 'server_label' => label, 'dns' => dns,
            'windows_installer_protocol' => windows_installer_protocol,
            'windows_installer_port' => windows_installer_port,
            'windows_installer_host' => windows_installer_host,

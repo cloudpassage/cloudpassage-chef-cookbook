@@ -28,6 +28,7 @@ cloudpassage_agent 'halo' do
   agent_key final_config['agent_key']
   linux_agent_version final_config['linux_agent_version']
   grid_url final_config['grid_url']
+  azure_id final_config['azure_id']
   proxy_host final_config['proxy_host']
   proxy_port final_config['proxy_port']
   proxy_user final_config['proxy_user']

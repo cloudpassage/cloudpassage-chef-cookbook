@@ -51,13 +51,14 @@ The following attributes are configurable via the attributes/default.rb file:
     default['cloudpassage']['agent_key'] # Key used for agent registration
     default['cloudpassage']['grid_url'] # Normally https://grid.cloudpassage.com/grid
     default['cloudpassage']['linux_agent_version'] # Force a specific version of the Halo agent.
+    default['cloudpassage']['azure_id'] # Used to build server label as azureid_hostname. If server_label field is defined, that will take precendence.
     default['cloudpassage']['proxy_host']
     default['cloudpassage']['proxy_port']
     default['cloudpassage']['proxy_user']
     default['cloudpassage']['proxy_password']
     default['cloudpassage']['read_only'] # Start the agent in read-only mode
     default['cloudpassage']['server_tag'] # Used for server group association
-    default['cloudpassage']['server_label'] # Manually-defined label for server
+    default['cloudpassage']['server_label'] # Manually-defined label for server.
     default['cloudpassage']['dns'] # Disable agent DNS lookup
     default['cloudpassage']['windows_installer_protocol'] # Used in building the Windows package install string
     default['cloudpassage']['windows_installer_port'] # Port component of windows installer url
@@ -138,6 +139,7 @@ cloudpassage_halo resource:
 | agent_key                   | You MUST define this.  The default value will not register.                             |
 | grid_url                    | Only override this if you're running on your own grid.                                  |
 | linux_agent_version         | This forces a specific version of the Linux agent.                                      |
+| azure_id                    |                                                                                         |
 | proxy_host                  | Tells the agent to use a proxy                                                          |
 | proxy_port                  | Defines the port for the proxy                                                          |
 | proxy_user                  | Define a username for proxy use                                                         |

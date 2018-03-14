@@ -1,6 +1,6 @@
 default['cloudpassage']['agent_key'] = 'abc123'
 default['cloudpassage']['grid_url'] = 'https://grid.cloudpassage.com/grid'
-default['cloudpassage']['linux_agent_version'] = '4.1.1'
+default['cloudpassage']['linux_agent_version'] = '4.1.6'
 # If you define a proxy host, you must also define the port!
 default['cloudpassage']['azure_id'] = nil
 default['cloudpassage']['proxy_host'] = nil
@@ -15,7 +15,7 @@ default['cloudpassage']['windows_installer_protocol'] = 'https'
 default['cloudpassage']['windows_installer_port'] = '443'
 default['cloudpassage']['windows_installer_host'] = 'production.packages.cloudpassage.com'
 default['cloudpassage']['windows_installer_path'] = '/windows/'
-default['cloudpassage']['windows_installer_file_name'] = 'cphalo-4.1.0-win64.exe'
+default['cloudpassage']['windows_installer_file_name'] = 'cphalo-4.1.3-win64.exe'
 default['cloudpassage']['apt_repo_url'] = 'https://production.packages.cloudpassage.com/debian'
 default['cloudpassage']['apt_repo_distribution'] = 'debian'
 default['cloudpassage']['apt_repo_components'] = ['main']

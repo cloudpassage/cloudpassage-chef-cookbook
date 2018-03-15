@@ -1,7 +1,7 @@
 rvm:
   - 2.3.3
 env:
-  - CHEF_DK_VERSION=1.4.3
+  - CHEF_DK_VERSION=2.5.3
 
 sudo: required
 
@@ -11,10 +11,10 @@ install:
 script:
   - chef exec berks install
   - chef exec rake travis
+  - chef exec rake integration:windows
   - chef exec rake integration:ubuntu
   - chef exec rake integration:rhel
   - chef exec rake integration:amzn
   - chef exec rake integration:centos
   - chef exec rake integration:debian
   - chef exec rake integration:oracle
-  - chef exec rake integration:windows

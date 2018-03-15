@@ -33,7 +33,7 @@ information via attributes or data bag.
  - Amazon Linux 2015.09, 2016.09, 2017.03
  - Windows Server 2008R2, 2012R2
 
-### Tested Chef Versions (Using Chef DK 1.4.3)
+### Tested Chef Versions (Using Chef DK 2.5.3)
  - chef-client 12.9.38
  - chef-client 12.9.41
  - chef-client 12.10.24
@@ -43,6 +43,7 @@ information via attributes or data bag.
  - chef-client 12.20.3
  - chef-client 13.0.113
  - chef-client 13.0.118
+ - chef-client 13.8.5
 
 ## Recipe cloudpassage::default usage:
 

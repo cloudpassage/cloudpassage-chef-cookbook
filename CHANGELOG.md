@@ -156,3 +156,9 @@
 ## 4.0.2
 
 * Update Agent version to 4.1.1 (Linux) and 4.1.0 (Windows)
+
+## 4.0.3
+
+* Update Agent version to 4.1.6 (Linux) and 4.1.3 (Windows)
+* Update vulnerable Gem rubocop to 0.39.0
+* Update Deprecated Use of property_name inside of actions

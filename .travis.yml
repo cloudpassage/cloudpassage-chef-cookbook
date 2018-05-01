@@ -1,5 +1,5 @@
 rvm:
-  - 2.3.3
+  - 2.4.0
 env:
   - CHEF_DK_VERSION=2.5.3
 

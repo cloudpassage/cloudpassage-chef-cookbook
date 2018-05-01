@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rake', '~>10.4.2'
+gem 'rake', '~>11.2.2'
 gem 'berkshelf', '>=4.0'
 gem 'nio4r', '~>1.2.1'
 

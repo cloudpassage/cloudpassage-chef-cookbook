@@ -5,7 +5,6 @@ driver:
   aws_ssh_key_id: <%= ENV['KITCHEN_AWS_SSH_KEY_ID'] %>
   region: <%= ENV['KITCHEN_AWS_REGION'] %>
   availability_zone: <%= ENV['KITCHEN_AWS_REGION_ZONE'] %>
-  require_chef_omnibus: true
   subnet_id: <%= ENV['KITCHEN_AWS_SUBNET_ID'] %>
   instance_type: <%= ENV['KITCHEN_EC2_INSTANCE_TYPE'] %>
   associate_public_ip: <%= ENV['KITCHEN_EC2_PUBLIC_IP'] %>
@@ -19,10 +18,11 @@ transport:
   connection_retries: 5
 
 provisioner:
-  name: chef_zero
+  product_name: chef
+  product_version: <%= ENV['CHEF_OMNIBUS_VERSION'] %>
 
 platforms:
-  - name: windows-2012r2
+  - name: windows-2012r2-<%= ENV['CHEF_OMNIBUS_VERSION'] %>
     driver:
       image_id: <%= ENV['WIN_2012_R2_AMI_ID'] %>
 suites:

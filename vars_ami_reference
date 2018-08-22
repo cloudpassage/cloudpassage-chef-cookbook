@@ -1,0 +1,61 @@
+##############
+# Amazon Linux
+export AMZN_LIN_2015_09_AMI_ID=ami-42b15122
+export AMZN_LIN_2015_09_USER=ec2-user
+
+export AMZN_LIN_2016_09_AMI_ID=ami-f173cc91
+export AMZN_LIN_2016_09_USER=ec2-user
+
+
+##############
+# CentOS
+export CENTOS_6_AMI_ID=ami-6fcc8f17
+export CENTOS_6_USER=root
+
+export CENTOS_7_AMI_ID=ami-3ecc8f46
+export CENTOS_7_USER=root
+
+
+##############
+# Debian
+export DEBIAN_7_AMI_ID=ami-431a4273
+export DEBIAN_7_USER=admin
+
+export DEBIAN_81_AMI_ID=ami-221ea342
+export DEBIAN_81_USER=admin
+
+
+##############
+# Oracle
+export ORACLE_6_AMI_ID=ami-29d3ce48
+export ORACLE_6_USER=ec2-user
+
+export ORACLE_7_AMI_ID=ami-0d25886d
+export ORACLE_7_USER=ec2-user
+
+
+##############
+# RHEL
+export RHEL_6_AMI_ID=ami-274ba847
+export RHEL_6_USER=ec2-user
+
+export RHEL_73_AMI_ID=ami-6f68cf0f
+export RHEL_73_USER=ec2-user
+
+
+##############
+# Ubuntu
+export UBUNTU_16_AMI_ID=ami-ba602bc2
+export UBUNTU_16_USER=ubuntu
+
+export UBUNTU_14_AMI_ID=ami-a3ebbfdb
+export UBUNTU_14_USER=ubuntu
+
+export UBUNTU_12_AMI_ID=ami-05eb1165
+export UBUNTU_12_USER=ubuntu
+
+
+##############
+# Windows
+export WIN_2008_R2_AMI_ID=ami-e7e87c9f
+export WIN_2012_R2_AMI_ID=ami-ea950192

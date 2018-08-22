@@ -3,10 +3,10 @@ require 'chefspec/berkshelf'
 
 ENV['PROGRAMW6432'] = 'C:\Program Files'
 describe 'cloudpassage' do
-  test_platforms = [['debian', '7.0', 'cphalod', 'cphalo'],
-                    ['redhat', '6.0', 'cphalod', 'cphalo'],
-                    ['redhat', '6.5', 'cphalod', 'cphalo'],
-                    ['redhat', '7.0', 'cphalod', 'cphalo'],
+  test_platforms = [['debian', '7.11', 'cphalod', 'cphalo'],
+                    ['redhat', '6.8', 'cphalod', 'cphalo'],
+                    ['redhat', '6.9', 'cphalod', 'cphalo'],
+                    ['redhat', '7.4', 'cphalod', 'cphalo'],
                     ['windows', '2008R2', 'CloudPassage Halo Agent',
                      'CloudPassage Halo'],
                     ['windows', '2012', 'CloudPassage Halo Agent',
@@ -82,8 +82,8 @@ describe 'cloudpassage' do
           @chef_run = ChefSpec::SoloRunner.new(step_into: ['cloudpassage_agent'])
           @chef_run.node.default['platform'] = "#{platform}"
           @chef_run.node.default['version'] = "#{version}"
-          @chef_run.node.set['cloudpassage']['apt_repo_url'] = nil
-          @chef_run.node.set['cloudpassage']['yum_repo_url'] = nil
+          @chef_run.node.default['cloudpassage']['apt_repo_url'] = nil
+          @chef_run.node.default['cloudpassage']['yum_repo_url'] = nil
           @chef_run.converge(described_recipe)
         end
         it 'Skips configuration of apt repo if repo link is empty.' do

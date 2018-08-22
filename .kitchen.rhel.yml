@@ -5,7 +5,6 @@ driver:
   aws_ssh_key_id: <%= ENV['KITCHEN_AWS_SSH_KEY_ID'] %>
   region: <%= ENV['KITCHEN_AWS_REGION'] %>
   availability_zone: <%= ENV['KITCHEN_AWS_REGION_ZONE'] %>
-  require_chef_omnibus: true
   subnet_id: <%= ENV['KITCHEN_AWS_SUBNET_ID'] %>
   instance_type: <%= ENV['KITCHEN_EC2_INSTANCE_TYPE'] %>
   associate_public_ip: <%= ENV['KITCHEN_EC2_PUBLIC_IP'] %>
@@ -19,24 +18,22 @@ transport:
   connection_retries: 5
 
 provisioner:
-  name: chef_zero
+  product_name: chef
+  product_version: <%= ENV['CHEF_OMNIBUS_VERSION'] %>
 
 platforms:
-  - name: rhel-7.3
+  - name: rhel-7.3-<%= ENV['CHEF_OMNIBUS_VERSION'] %>
     driver:
       image_id: <%= ENV['RHEL_73_AMI_ID'] %>
-      # image_id: ami-775e4f16
       user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
       username: <%= ENV['RHEL_73_USER'] %>
-      # username: ec2-user
-  - name: rhel-6
+  - name: rhel-6-<%= ENV['CHEF_OMNIBUS_VERSION'] %>
     driver:
       image_id: <%= ENV['RHEL_6_AMI_ID'] %>
-      # image_id: ami-775e4f16
       user_data: <%= ENV['KITCHEN_EC2_USER_DATA'] %>
     transport:
-      username: <%= ENV['RHEL_73_USER'] %>
+      username: <%= ENV['RHEL_6_USER'] %>
 suites:
   - name: default
     run_list:

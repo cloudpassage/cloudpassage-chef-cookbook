@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 4.0.3
+Version: 4.0.4
 
 Author: CloudPassage
 

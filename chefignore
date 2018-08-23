@@ -1,1 +1,4 @@
-.kitchen
+.kitchen*
+vars_*
+.travis.yml
+*.enc

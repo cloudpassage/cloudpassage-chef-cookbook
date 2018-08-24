@@ -1,6 +1,6 @@
 default['cloudpassage']['agent_key'] = 'abc123'
 default['cloudpassage']['grid_url'] = 'https://grid.cloudpassage.com/grid'
-default['cloudpassage']['linux_agent_version'] = '4.1.6'
+default['cloudpassage']['linux_agent_version'] = '4.2.4-1'
 # If you define a proxy host, you must also define the port!
 default['cloudpassage']['azure_id'] = nil
 default['cloudpassage']['proxy_host'] = nil

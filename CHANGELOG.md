@@ -162,3 +162,12 @@
 * Update Agent version to 4.1.6 (Linux) and 4.1.3 (Windows)
 * Update vulnerable Gem rubocop to 0.39.0
 * Update Deprecated Use of property_name inside of actions
+
+## 4.0.4
+
+* Remove s3.rb
+* Update default agent for installation and testing to 4.2.4-1
+* Remove EOL OSes Debian 7 and Ubuntu 12.04 from testing matrix
+* Expand testing matrix in .travis.yml
+* Re-structure testing
+* Windows testing disabled until Busser is fixed

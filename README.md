@@ -2,7 +2,7 @@
 
 # cloudpassage Cookbook
 
-Version: 4.0.3
+Version: 4.0.4
 
 Author: CloudPassage
 
@@ -24,26 +24,39 @@ Optionally, you can also use the default recipe, but you'll need to provide conf
 information via attributes or data bag.
 
 ## Requirements and dependencies
+
 ### Tested and Supported Platforms
 
- - Ubuntu 12.04, 14.04, 16.04
+ - Ubuntu 14.04, 16.04
  - CentOS 6.7, 7.1
- - Debian 7, 8
+ - Debian 8
  - RHEL 7.3
  - Amazon Linux 2015.09, 2016.09, 2017.03
- - Windows Server 2008R2, 2012R2
+ - Windows Server 2012R2
 
-### Tested Chef Versions (Using Chef DK 2.5.3)
- - chef-client 12.9.38
- - chef-client 12.9.41
- - chef-client 12.10.24
- - chef-client 12.11.18
- - chef-client 12.12.13
- - chef-client 12.15.19
- - chef-client 12.20.3
- - chef-client 13.0.113
- - chef-client 13.0.118
- - chef-client 13.8.5
+### Chef versions used in testing
+
+ - 14.3
+ - 14.2
+ - 14.1
+ - 14.0
+ - 13.9
+ - 13.8
+ - 13.7
+ - 13.6
+ - 13.5
+ - 13.4
+ - 13.3
+ - 13.1
+ - 13.0
+ - 12.22
+ - 12.21
+ - 12.19
+ - 12.18
+ - 12.17
+ - 12.16
+ - 12.15
+ - 12.14
 
 ## Recipe cloudpassage::default usage:
 

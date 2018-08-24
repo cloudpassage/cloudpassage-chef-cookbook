@@ -12,7 +12,6 @@ group :spec do
 end
 
 group :integration do
-  gem 'aws-sdk', '~>2.9.23'
   gem 'test-kitchen', '~>1.16.0'
   gem 'kitchen-vagrant', '~>0.19.0'
   gem 'kitchen-ec2', '~>0.10.0'
